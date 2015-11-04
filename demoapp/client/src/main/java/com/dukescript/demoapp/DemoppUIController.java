@@ -32,6 +32,12 @@ final class DemoppUIController {
         return java.util.Arrays.asList(arr);
     }
     
+   @Function static void resizeCanvas(){
+       ctx.setWidth(Dialogs.getWidth());
+       ctx.setHeight(Dialogs.getHeight());
+       System.out.println(Dialogs.getHeightOfElement("controllsDiv"));
+   }
+    
     
     @Function static void turnAnimationOn(DemoappUI model) {
         model.setRotating(true);

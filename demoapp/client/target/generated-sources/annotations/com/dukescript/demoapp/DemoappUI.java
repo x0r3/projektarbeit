@@ -77,17 +77,18 @@ public final class DemoappUI implements Cloneable {
   };
   private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<DemoappUI> {
     private Html4JavaType() {
-      super(DemoappUI.class, DemoppUIController.class, 5, 5);
+      super(DemoappUI.class, DemoppUIController.class, 5, 6);
       registerProperty("words", 0, true);
       registerProperty("infoMessage", 1, false);
       registerProperty("rotating", 2, false);
       registerProperty("first", 3, false);
       registerProperty("second", 4, false);
-      registerFunction("turnAnimationOn", 0);
-      registerFunction("turnAnimationOff", 1);
-      registerFunction("rotate5s", 2);
-      registerFunction("showScreenSize", 3);
-      registerFunction("drawSmallerRect", 4);
+      registerFunction("resizeCanvas", 0);
+      registerFunction("turnAnimationOn", 1);
+      registerFunction("turnAnimationOff", 2);
+      registerFunction("rotate5s", 3);
+      registerFunction("showScreenSize", 4);
+      registerFunction("drawSmallerRect", 5);
     }
     @Override public void setValue(DemoappUI data, int type, Object value) {
       switch (type) {
@@ -111,18 +112,21 @@ public final class DemoappUI implements Cloneable {
     @Override public void call(DemoappUI model, int type, Object data, Object ev) throws Exception {
       switch (type) {
         case 0:
-          com.dukescript.demoapp.DemoppUIController.turnAnimationOn(model);
+          com.dukescript.demoapp.DemoppUIController.resizeCanvas();
           return;
         case 1:
-          com.dukescript.demoapp.DemoppUIController.turnAnimationOff(model);
+          com.dukescript.demoapp.DemoppUIController.turnAnimationOn(model);
           return;
         case 2:
-          com.dukescript.demoapp.DemoppUIController.rotate5s(model);
+          com.dukescript.demoapp.DemoppUIController.turnAnimationOff(model);
           return;
         case 3:
-          com.dukescript.demoapp.DemoppUIController.showScreenSize(model);
+          com.dukescript.demoapp.DemoppUIController.rotate5s(model);
           return;
         case 4:
+          com.dukescript.demoapp.DemoppUIController.showScreenSize(model);
+          return;
+        case 5:
           com.dukescript.demoapp.DemoppUIController.drawSmallerRect(model);
           return;
       }

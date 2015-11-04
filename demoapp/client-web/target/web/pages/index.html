@@ -4,20 +4,25 @@
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
+            body{
+                font-family:Agency FB; 
+                background-color:#EEF5FF;
+            }
+            #masterDiv{
+            }
             #controllsDiv {
                 border-style: solid;
+                background-color:#CCFFCC;
             }
-            #canvasDiv {
-                float: right;
-                border-style: solid;
+
+            #myCanvas {
+                background-color:#E6E6E6;
             }
 
         </style>
     </head>
     <body>
-        <table id="masterTable">
-            <tr>
-        <td id ="controllsTable">
+        <div id="masterDiv">
             <div id="controllsDiv">
             <h1>Wilkommen!</h1>
         
@@ -31,19 +36,13 @@
             <br>
             <button data-bind="enable: rotating, click: $root.turnAnimationOff">Stop</button>
             <br>
-            <button data-bind="enable: !rotating(), click: $root.rotate5s">Rotate Few Seconds</button>
-            <br>
-            <button data-bind="click: $root.showScreenSize">Screen Size!</button>
+            <button data-bind="click: $root.resizeCanvas">Resize!</button>
             <br>
             <button data-bind="click: $root.drawSmallerRect">Draw!</button>
             </div>
-        </td>
-        <td id="canvasTable">
             <div id="canvasDiv">
-            <canvas id="myCanvas"></canvas>
+                <canvas id="myCanvas"></canvas>
             </div>
-        </td>
-                </tr>
-            </table>
+            </div>
     </body>
 </html>

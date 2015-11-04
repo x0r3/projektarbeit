@@ -37,11 +37,30 @@ public final class Dialogs {
         "return 'Screen size is ' + x + ' times ' + y;\n"
     )
     public static native String screenSize();
-    /*
+    
     @JavaScriptBody(
+        args = {}, body = 
+                "return window.innerWidth;")
+    
+    public static native int getWidth();
+    
+    
+        @JavaScriptBody(
         args = {}, body = 
                 "return window.innerHeight;")
     
-    public static native String getSreenWidth();
-    */
+    public static native int getHeight();
+    
+    
+    @JavaScriptBody(
+        args = {"element"},
+        javacall = true,
+        body = 
+                "var a = document.getElementById(element), \n" +
+                "return a.clientHeight.toString();")
+    
+    public static native String getHeightOfElement(String element);
+    
+    //Funktioniert komicsherweise noch nicht :o
+    
 }

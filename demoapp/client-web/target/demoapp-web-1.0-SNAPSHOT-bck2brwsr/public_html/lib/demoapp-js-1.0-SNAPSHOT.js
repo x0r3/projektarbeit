@@ -306,6 +306,12 @@ vm.com_dukescript_demoapp_js_Dialogs = function com_dukescript_demoapp_js_Dialog
   m = c._$$fn$$confirmByUser_1 = function (v) {  if (arguments.length == 1) CLS.fld_$$fn$$confirmByUser_1 = v; return CLS.fld_$$fn$$confirmByUser_1; };
   CLS.fld_$$fn$$screenSize_2 = null;
   m = c._$$fn$$screenSize_2 = function (v) {  if (arguments.length == 1) CLS.fld_$$fn$$screenSize_2 = v; return CLS.fld_$$fn$$screenSize_2; };
+  CLS.fld_$$fn$$getWidth_3 = null;
+  m = c._$$fn$$getWidth_3 = function (v) {  if (arguments.length == 1) CLS.fld_$$fn$$getWidth_3 = v; return CLS.fld_$$fn$$getWidth_3; };
+  CLS.fld_$$fn$$getHeight_4 = null;
+  m = c._$$fn$$getHeight_4 = function (v) {  if (arguments.length == 1) CLS.fld_$$fn$$getHeight_4 = v; return CLS.fld_$$fn$$getHeight_4; };
+  CLS.fld_$$fn$$getHeightOfElement_5 = null;
+  m = c._$$fn$$getHeightOfElement_5 = function (v) {  if (arguments.length == 1) CLS.fld_$$fn$$getHeightOfElement_5 = v; return CLS.fld_$$fn$$getHeightOfElement_5; };
     m = CLS.cons__V = function() {
   var  lcA0 = this;
 (refs_java_lang_Object || (refs_java_lang_Object = vm.java_lang_Object(false))).constructor['cons__V'].call(lcA0);
@@ -340,6 +346,32 @@ return 'Screen size is ' + x + ' times ' + y;
 }
 
 c['screenSize__Ljava_lang_String_2'] = m;
+
+    m.access = 9;
+    m.cls = CLS;
+    m = c.getWidth__I = function() {
+return window.innerWidth;
+}
+
+c['getWidth__I'] = m;
+
+    m.access = 9;
+    m.cls = CLS;
+    m = c.getHeight__I = function() {
+return window.innerHeight;
+}
+
+c['getHeight__I'] = m;
+
+    m.access = 9;
+    m.cls = CLS;
+    m = c.getHeightOfElement__ILjava_lang_String_2 = function(element) {
+
+  element = vm.java_lang_Class(false).toJS(element);var a = document.getElementById(element), 
+return a.clientHeight.toString();
+}
+
+c['getHeightOfElement__ILjava_lang_String_2'] = m;
 
     m.access = 9;
     m.cls = CLS;
@@ -381,5 +413,5 @@ exports['com_dukescript_demoapp_js_Dialogs'] = vm.com_dukescript_demoapp_js_Dial
   invoker.toJava__Ljava_lang_Object_2Ljava_lang_Object_2 = function(target, p0, p1) {
     return target['toJava__Ljava_lang_Object_2Ljava_lang_Object_2'](p0,p1);
   };
-  exports['registerResource']('META-INF/MANIFEST.MF', 'TWFuaWZlc3QtVmVyc2lvbjogMS4wDQpCbmQtTGFzdE1vZGlmaWVkOiAxNDQ1ODA2NTE1OTQzDQpCdWlsZC1KZGs6IDEuOC4wXzY2DQpCdWlsdC1CeTogTmlraWNhDQpCdW5kbGUtTWFuaWZlc3RWZXJzaW9uOiAyDQpCdW5kbGUtTmFtZTogZGVtb2FwcCBKYXZhU2NyaXB0IExpYnJhcmllcw0KQnVuZGxlLVN5bWJvbGljTmFtZTogY29tLmR1a2VzY3JpcHQuZGVtb2FwcC5qcw0KQnVuZGxlLVZlcnNpb246IDEuMC4wLlNOQVBTSE9UDQpDcmVhdGVkLUJ5OiBBcGFjaGUgTWF2ZW4gQnVuZGxlIFBsdWdpbg0KRXhwb3J0LVBhY2thZ2U6IGNvbS5kdWtlc2NyaXB0LmRlbW9hcHAuanM7dmVyc2lvbj0iMS4wLjAuU05BUFNIT1QiDQpJbXBvcnQtUGFja2FnZTogb3JnLm5ldGJlYW5zLmh0bWwuYm9vdC5zcGk7dmVyc2lvbj0iWzEuMiwyKSINClRvb2w6IEJuZC0yLjEuMC4yMDEzMDQyNi0xMjIyMTMNCg==');
+  exports['registerResource']('META-INF/MANIFEST.MF', 'TWFuaWZlc3QtVmVyc2lvbjogMS4wDQpCbmQtTGFzdE1vZGlmaWVkOiAxNDQ2NjAwNzI0NjcxDQpCdWlsZC1KZGs6IDEuNy4wXzQ1DQpCdWlsdC1CeTogTmlraWNhDQpCdW5kbGUtTWFuaWZlc3RWZXJzaW9uOiAyDQpCdW5kbGUtTmFtZTogZGVtb2FwcCBKYXZhU2NyaXB0IExpYnJhcmllcw0KQnVuZGxlLVN5bWJvbGljTmFtZTogY29tLmR1a2VzY3JpcHQuZGVtb2FwcC5qcw0KQnVuZGxlLVZlcnNpb246IDEuMC4wLlNOQVBTSE9UDQpDcmVhdGVkLUJ5OiBBcGFjaGUgTWF2ZW4gQnVuZGxlIFBsdWdpbg0KRXhwb3J0LVBhY2thZ2U6IGNvbS5kdWtlc2NyaXB0LmRlbW9hcHAuanM7dmVyc2lvbj0iMS4wLjAuU05BUFNIT1QiDQpJbXBvcnQtUGFja2FnZTogb3JnLm5ldGJlYW5zLmh0bWwuYm9vdC5zcGk7dmVyc2lvbj0iWzEuMiwyKSINClRvb2w6IEJuZC0yLjEuMC4yMDEzMDQyNi0xMjIyMTMNCg==');
 });

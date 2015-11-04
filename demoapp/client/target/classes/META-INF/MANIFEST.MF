@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1446485332077
-Build-Jdk: 1.8.0_66
+Bnd-LastModified: 1446601080441
+Build-Jdk: 1.7.0_45
 Built-By: Nikica
 Bundle-ManifestVersion: 2
 Bundle-Name: demoapp General Client Code
