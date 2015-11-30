@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.dukescript.demoapp.DataModelTest" time="0.059" tests="1" errors="0" skipped="0" failures="0">
+<testsuite name="com.dukescript.demoapp.DataModelTest" time="0.078" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_66\jre\bin"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\Nikica\Dropbox\workspace_semester_5\dropbox_repository\demoappv3\demoapp"/>
+    <property name="user.dir" value="C:\Users\Nikica\Desktop\droot\workspace\projektarbeit\demoapp"/>
     <property name="java.runtime.version" value="1.8.0_66-b17"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
     <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_66\jre\lib\endorsed"/>
@@ -60,5 +60,5 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="testUIModelWithoutUI" classname="com.dukescript.demoapp.DataModelTest" time="0.059"/>
+  <testcase name="testUIModelWithoutUI" classname="com.dukescript.demoapp.DataModelTest" time="0.078"/>
 </testsuite>
