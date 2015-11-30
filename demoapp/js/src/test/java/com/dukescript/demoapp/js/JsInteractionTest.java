@@ -22,19 +22,4 @@ public class JsInteractionTest {
     @AfterMethod public void shutdownJSEngine() throws Exception {
         jsEngine.close();
     }
-    @Test public void testCallbackFromJavaScript() throws Exception {
-        class R implements Runnable {
-            int called;
-
-            @Override
-            public void run() {
-                called++;
-            }
-        }
-        R callback = new R();
-        
-        Dialogs.confirmByUser("Hello", callback);
-        
-        assertEquals(callback.called, 1, "One immediate callback");
-    }
 }

@@ -1,13 +1,15 @@
 package com.dukescript.demoapp;
 
+
+import com.dukescript.demoapp.js.Dialogs;
 import net.java.html.boot.BrowserBuilder;
+import net.java.html.js.JavaScriptBody;
 
 public final class Main {
     private Main() {
     }
 
     public static void main(String... args) throws Exception {
-        
         BrowserBuilder.newBrowser().
             loadPage("pages/index.html").
             loadClass(Main.class).
@@ -20,8 +22,9 @@ public final class Main {
      * Called when the page is ready.
      */
     public static void onPageLoad() throws Exception {
-        DemoppUIController.onPageLoad();
-        
+        DataModel.onPageLoad();
     }
+    
+
 
 }

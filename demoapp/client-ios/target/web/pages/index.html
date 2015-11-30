@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            body{
+                font-family:Agency FB; 
+                background-color:#EEF5FF;
+            }
+            #masterDiv{
+            }
+            #controllsDiv {
+                border-style: solid;
+                background-color:#CCFF99;
+            }
+
+            #myCanvas {
+                background-color:#E0E0D1;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="masterDiv">
+            <div id="controllsDiv">
+            <h1>Wilkommen!</h1>
+            <button data-bind="click: $root.resizeCanvas">Resize!</button>
+            <button data-bind="click: $root.decreaseStates">Remove State</button>
+            <br>
+            <button data-bind="click: $root.refreshCanvas">Draw!</button>
+            <button data-bind="click: addState">Add State</button>
+            <div data-bind="foreach: states">
+            <span>Value</span>
+            <input data-bind="value: id, valueUpdate: 'afterkeydown'">
+            <button data-bind="click: removeTransition">Remove Transition</button>
+            <button data-bind="click: addTransition">Add Transition</button>
+                <div data-bind="foreach: transitions">
+                    <span>To</span>
+                    <input data-bind="value: to">
+                    <span>With (Value)</span>
+                    <input data-bind="value: value">
+                    <br>
+                </div>
+            </div>
+            <br>
+            <span></span>
+            </div>
+            <div id="canvasDiv">
+                <canvas id="myCanvas" data-bind="mousepressed: mousePressed"></canvas>
+            </div>
+            </div>
+    </body>
+</html>

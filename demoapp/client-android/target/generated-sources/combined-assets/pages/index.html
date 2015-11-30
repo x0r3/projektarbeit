@@ -3,70 +3,62 @@
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <style type="text/css">
-            @-webkit-keyframes spin {
-                0% { -webkit-transform: rotate(0deg); }
-                100% { -webkit-transform: rotate(360deg); }
+        <style>
+            body{
+                font-family:Agency FB; 
+                background-color:#EEF5FF;
             }
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+            #masterDiv{
             }
-
-            input {
-                width: 100%;
+            #controllsDiv {
+                border-style: solid;
+                background-color:#CCFF99;
             }
-
-            .rotate {
-                -webkit-animation-name: spin;
-                -webkit-animation-duration: 3s;
-                -webkit-animation-iteration-count: infinite;
-                -webkit-animation-direction: alternate;
-                animation-name: spin;
-                animation-duration: 3s;
-                animation-iteration-count: infinite;
-                animation-direction: alternate;
+            #myCanvas {
+                background-color:#E0E0D1;
             }
-
-            #scene {
-                position: relative;
-                top: 60px;
-                text-align: center;
-            }
-
-            #words span {
-                border: 1px solid #ccc;
-                background: rgba(255,255,155,0.8);
-                text-align: center;
+            #mode {
                 font-size: 30px;
-                -webkit-box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
-                box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
-                position: absolute;
             }
-
-            #words span:nth-child(1) { left: 45%; top: 0px; }
-            #words span:nth-child(2) { left: 25%; top: 100px; }
-            #words span:nth-child(3) { left: 65%; top: 100px; }
-            #words span:nth-child(4) { left: 10%; top: 200px; }
-            #words span:nth-child(5) { left: 45%; top: 200px; }
-            #words span:nth-child(6) { left: 80%; top: 200px; }
-
+            #validProblem{
+                 color: red;
+            }
         </style>
     </head>
     <body>
-        <h1>Words Demo</h1>
-        <input data-bind="textInput:  message">
-        <br>
-        <button data-bind="enable: !rotating(), click: $root.turnAnimationOn">Start</button>
-        <button data-bind="enable: rotating, click: $root.turnAnimationOff">Stop</button>
-        <button data-bind="enable: !rotating(), click: $root.rotate5s">Rotate Few Seconds</button>
-        <button data-bind="click: $root.showScreenSize">Screen Size!</button>
-
-        <div id="scene">
-            <span id="words" data-bind="foreach: words">
-                <span data-bind="text: $data, css: { 'rotate' : $root.rotating } "></span>
-            </span>
-        </div>
-<!-- ${browser.bootstrap} -->
+        <div id="masterDiv">
+            <div id="controllsDiv">
+            <h1>State-Tool v1.0</h1>
+            <button data-bind="click: $root.resizeCanvas">Resize!</button>
+            <button data-bind="click: $root.decreaseStates">Remove State</button>
+            <br>
+            <button data-bind="click: $root.refreshCanvas">Refresh Canvas!</button>
+            <button data-bind="click: addState">Add State</button>
+            <div data-bind="foreach: states">
+            <span>Value</span>
+            <input data-bind="value: id, valueUpdate: 'afterkeydown'">
+            <button data-bind="click: removeTransition">Remove Transition</button>
+            <button data-bind="click: addTransition">Add Transition</button>
+                <div data-bind="foreach: transitions">
+                    <span>________________To</span>
+                    <input data-bind="value: to">
+                    <span>With (Value)</span>
+                    <input data-bind="value: value">
+                    <br>
+                </div>
+            </div>
+            <button data-bind="click: dragMode">Drag</button>
+            <button data-bind="click: drawTransitionMode">Draw Transition</button>
+            <br>
+            <span data-bind="text: xCoord"></span>
+            <br>
+            <span data-bind="text: yCoord"></span>
+            <br>
+            <span id="mode" data-bind="text: displayString"></span>
+            </div>
+            <div id="canvasDiv">
+                <canvas id="myCanvas" style="cursor:crosshair" data-bind="event:{mousedown:handleMouseDown, mouseup:handleMouseUp}, mousepressed: mousePressed, customMouseover: updateMaus"></canvas>
+            </div>
+            </div>
     </body>
 </html>
