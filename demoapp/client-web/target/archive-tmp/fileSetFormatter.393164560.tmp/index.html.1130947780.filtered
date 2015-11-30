@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!— initialize bck2brwsr -->
+<script type="text/javascript" src="bck2brwsr.js"></script>
+<script>
+    var vm = bck2brwsr('demoapp.js');
+    var c = vm.loadClass('com.dukescript.demoapp.BrowserMain');
+    c.invoke('main');
+</script>
+<!-- end of initialization —>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
@@ -60,13 +68,5 @@
                 <canvas id="myCanvas" style="cursor:crosshair" data-bind="event:{mousedown:handleMouseDown, mouseup:handleMouseUp}, mousepressed: mousePressed, customMouseover: updateMaus"></canvas>
             </div>
             </div>
-        <!-- initialize bck2brwsr -->
-<script type="text/javascript" src="bck2brwsr.js"></script>
-<script>
-    var vm = bck2brwsr('demoapp.js');
-    var c = vm.loadClass('com.dukescript.demoapp.BrowserMain');
-    c.invoke('main');
-</script>
-<!-- end of initialization -->
     </body>
 </html>

@@ -6,7 +6,6 @@ import net.java.html.json.Model;
 import net.java.html.json.Property;
 import com.dukescript.api.canvas.*;
 import com.dukescript.demoapp.js.Dialogs;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
