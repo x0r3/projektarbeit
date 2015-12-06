@@ -78,10 +78,10 @@ final class DataModel {
     private static double gridSize;
     private static double gridCountWidth;
     private static double gridCountHeight;
-    private static final int screenWidth = Dialogs.getSreenWidth();
-    private static final int screenHeight = Dialogs.getSreenHeight();
-    private static final int guiWidth = Dialogs.getGuiWidth();
-    private static final int guiHeight = Dialogs.getGuiHeight();
+    private static int screenWidth = Dialogs.getSreenWidth();
+    private static int screenHeight = Dialogs.getSreenHeight();
+    private static int guiWidth = Dialogs.getGuiWidth();
+    private static int guiHeight = Dialogs.getGuiHeight();
     private static StateTupel TupelInFocus;
     private static Transition currentTransition;
     private static boolean drawing;
@@ -275,7 +275,10 @@ final class DataModel {
     @Function static void resizeCanvas(){
         
 
-        
+        screenWidth = Dialogs.getSreenWidth();
+        screenHeight = Dialogs.getSreenHeight();
+        guiWidth = Dialogs.getGuiWidth();
+        guiHeight = Dialogs.getGuiHeight();
              
         ctx.setWidth(screenWidth - 30);
         ctx.setHeight((screenHeight - guiHeight) - 15);
