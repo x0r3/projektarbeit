@@ -2,12 +2,12 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="47" started-at="2016-03-09T06:52:55Z" finished-at="2016-03-09T06:52:55Z">
+  <suite name="Surefire suite" duration-ms="50" started-at="2016-03-09T19:32:31Z" finished-at="2016-03-09T19:32:32Z">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="47" started-at="2016-03-09T06:52:55Z" finished-at="2016-03-09T06:52:55Z">
+    <test name="Surefire test" duration-ms="50" started-at="2016-03-09T19:32:31Z" finished-at="2016-03-09T19:32:32Z">
       <class name="com.dukescript.demoapp.DataModelTest">
-        <test-method status="PASS" signature="testUIModelWithoutUI()[pri:0, instance:com.dukescript.demoapp.DataModelTest@6debcae2]" name="testUIModelWithoutUI" duration-ms="31" started-at="2016-03-09T07:52:55Z" finished-at="2016-03-09T07:52:55Z">
+        <test-method status="PASS" signature="testUIModelWithoutUI()[pri:0, instance:com.dukescript.demoapp.DataModelTest@4cdbe50f]" name="testUIModelWithoutUI" duration-ms="39" started-at="2016-03-09T20:32:31Z" finished-at="2016-03-09T20:32:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUIModelWithoutUI -->
