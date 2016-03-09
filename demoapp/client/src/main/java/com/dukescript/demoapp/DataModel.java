@@ -243,6 +243,57 @@ final class DataModel {
                         ctx.moveTo(st.getCoords().get(1), st.getCoords().get(2));
                         ctx.lineTo(st2.getCoords().get(1), st2.getCoords().get(2));
                         ctx.stroke();
+                        
+                        double dx = (st.getCoords().get(1) - st2.getCoords().get(1)) / 2.0;
+                        double dy = (st.getCoords().get(2) - st2.getCoords().get(2)) / 2.0;
+                        
+                        double absdx = Math.abs(st.getCoords().get(1) - st2.getCoords().get(1)) / 2.0;
+                        double absdy = Math.abs(st.getCoords().get(2) - st2.getCoords().get(2)) / 2.0;
+                        
+                        //Domenico
+                        double angle = 0.0;
+                        angle = Math.toDegrees(Math.atan2(dy, dx));
+                        angle = angle - 90;
+                        /*
+                        System.out.println("dx: " + dx);
+                        System.out.println("dy: " + dy);
+                        System.out.println("absdx: " + absdx);
+                        System.out.println("absdy: " + absdy);
+                        System.out.println("sin(absdx/absdy): " + ((Math.asin(dy / dx))/2 * Math.PI) * 180.0); // Noch zu überarbeiten
+                        System.out.println("sin(absdx/absdy * (-1)): " + Math.asin(absdy / absdx * (-1.0))); // ebenso
+                        */
+                        
+                        
+                        if(dx > 0 && dy > 0){
+                            drawCursor(Math.abs(st.getCoords().get(1) - absdx), Math.abs(st.getCoords().get(2) - absdy), angle);
+
+                
+                        }
+                        else if(dx > 0 && dy <0){
+                            drawCursor(Math.abs(st.getCoords().get(1) - absdx), st.getCoords().get(2) - absdy * (-1.0), angle);
+
+                        }
+                        else if(dx < 0 && dy < 0){
+                            drawCursor(st.getCoords().get(1) - absdx * (-1.0), st.getCoords().get(2) - absdy * (-1.0), angle);
+
+                        }
+                        else{
+                            drawCursor(st.getCoords().get(1) - absdx * (-1.0), Math.abs(st.getCoords().get(2)) - absdy, angle);
+
+                            double deg;
+                            System.out.println("dx: " + dx);
+                            System.out.println("dy: " + dy);
+                            System.out.println("dx / dy :  " + dx / dy);
+                            System.out.println(" abs(dx / dy) : " + Math.abs(dx / dy));
+                            System.out.println(" tan(abs(dx / dy)) : " + Math.tan(Math.abs(dx / dy)));
+                            System.out.println("tan(abs(dx / dy)) to Degrees : " + Math.toDegrees(Math.tan(Math.abs(dx / dy))));
+                            deg = 90.0 - Math.toDegrees(Math.tan(Math.abs(dx / dy)));
+                            System.out.println("deg: " + deg);  
+
+                        }
+                            
+                            
+                        
                     }
                 }
             }
@@ -270,6 +321,27 @@ final class DataModel {
 
             
         } 
+    }
+    
+    static void drawCursor(double x, double y, double angle){
+        
+        ctx.beginPath();
+        double tempXTip = x + 15 * Math.sin(2 * Math.PI / 360 * angle);
+        double tempYTip = y - 15 * Math.cos(2 * Math.PI / 360 * angle);
+        ctx.moveTo(x, y);
+        ctx.lineTo(tempXTip, tempYTip);
+        ctx.moveTo(tempXTip, tempYTip);
+        double tempX = x + 5 * Math.sin(2 * Math.PI / 360 * (angle - 90));
+        double tempY = y - 5 * Math.cos(2 * Math.PI / 360 * (angle - 90));
+        ctx.lineTo(tempX, tempY);
+        tempX = x + 5 * Math.sin(2 * Math.PI / 360 * (angle + 90));
+        tempY = y - 5 * Math.cos(2 * Math.PI / 360 * (angle + 90));
+        ctx.lineTo(tempX, tempY);
+        ctx.moveTo(tempX, tempY);
+        ctx.lineTo(tempXTip, tempYTip);
+        ctx.setFillStyle(new Style.Color("Black"));
+        ctx.fill();
+    
     }
     
     @Function static void resizeCanvas(){
@@ -353,10 +425,15 @@ final class DataModel {
         t.getCoordsTo().add(1, 0);
         t.getCoordsTo().add(2, 0);
         currentTransition = t;
-        //GEIIIL!        
-                
+      
+        // Startzustand erzeugen
+        addState();
+        addState();
+        ui.setMode("drawTransition");
+        
         resizeCanvas();
         draw();
+        drawCursor(50, 50, 180);
         ui.applyBindings();
     }
     
