@@ -263,6 +263,15 @@ final class DataModel {
                         System.out.println("sin(absdx/absdy * (-1)): " + Math.asin(absdy / absdx * (-1.0))); // ebenso
                         */
                         
+                        /*
+                        Um Seiteneffekte beim Zeichnen des Zeigers zu verhindern.
+                        */
+                        if(dy == 0){
+                            dy += 0.001;
+                        }
+                        if(dx == 0){
+                            dx +=0.001;
+                        }
                         
                         if(dx > 0 && dy > 0){
                             drawCursor(Math.abs(st.getCoords().get(1) - absdx), Math.abs(st.getCoords().get(2) - absdy), angle);
@@ -324,6 +333,7 @@ final class DataModel {
     }
     
     static void drawCursor(double x, double y, double angle){
+        
         
         ctx.beginPath();
         double tempXTip = x + 15 * Math.sin(2 * Math.PI / 360 * angle);
@@ -433,7 +443,6 @@ final class DataModel {
         
         resizeCanvas();
         draw();
-        drawCursor(50, 50, 180);
         ui.applyBindings();
     }
     
