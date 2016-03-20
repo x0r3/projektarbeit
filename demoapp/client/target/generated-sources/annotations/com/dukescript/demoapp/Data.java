@@ -3,10 +3,55 @@ import net.java.html.json.*;
 public final class Data implements Cloneable {
   private static final Html4JavaType TYPE = new Html4JavaType();
   private final org.netbeans.html.json.spi.Proto proto;
-  private final java.util.List<StateTupel> prop_states;
-  public java.util.List<StateTupel> getStates() {
-    proto.accessProperty("states");
-    return prop_states;
+  public java.util.List<java.lang.String> getOptions() {
+    java.util.List<Graph> arg1 = getSavedGraphs();
+    try {
+      proto.acquireLock("options");
+      return com.dukescript.demoapp.DataModel.options(arg1);
+    } finally {
+      proto.releaseLock();
+    }
+  }
+  private java.lang.String prop_saveName;
+  public java.lang.String getSaveName() {
+    proto.accessProperty("saveName");
+    return prop_saveName;
+  }
+  public void setSaveName(java.lang.String v) {
+    proto.verifyUnlocked();
+    Object o = prop_saveName;
+    if (TYPE.isSame(o , v)) return;
+    prop_saveName = v;
+    proto.valueHasMutated("saveName", o, v);
+  }
+  private java.lang.String prop_selectedGraph;
+  public java.lang.String getSelectedGraph() {
+    proto.accessProperty("selectedGraph");
+    return prop_selectedGraph;
+  }
+  public void setSelectedGraph(java.lang.String v) {
+    proto.verifyUnlocked();
+    Object o = prop_selectedGraph;
+    if (TYPE.isSame(o , v)) return;
+    prop_selectedGraph = v;
+    proto.valueHasMutated("selectedGraph", o, v);
+  }
+  private Graph prop_graph;
+  public Graph getGraph() {
+    proto.accessProperty("graph");
+    return prop_graph;
+  }
+  public void setGraph(Graph v) {
+    proto.verifyUnlocked();
+    Object o = prop_graph;
+    if (o == v) return;
+    prop_graph = v;
+    proto.valueHasMutated("graph", o, v);
+  }
+  private final java.util.List<Graph> prop_savedGraphs;
+  public java.util.List<Graph> getSavedGraphs() {
+    proto.accessProperty("savedGraphs");
+    return prop_savedGraphs;
   }
   private int prop_xCoord;
   public int getXCoord() {
@@ -59,57 +104,74 @@ public final class Data implements Cloneable {
   private static Class<DataModel> modelFor() { return null; }
   private Data(net.java.html.BrwsrCtx context) {
     this.proto = TYPE.createProto(this, context);
-    this.prop_states = proto.createList("states", -1);
+    this.prop_savedGraphs = proto.createList("savedGraphs", -1, "options");
   };
   public Data() {
     this(net.java.html.BrwsrCtx.findDefault(Data.class));
+    prop_graph = new Graph();
   };
-  public Data(int aXCoord, int aYCoord, java.lang.String aMode, java.lang.String aDisplayString, StateTupel... aStates) {
+  public Data(java.lang.String aSaveName, java.lang.String aSelectedGraph, Graph aGraph, int aXCoord, int aYCoord, java.lang.String aMode, java.lang.String aDisplayString, Graph... aSavedGraphs) {
     this(net.java.html.BrwsrCtx.findDefault(Data.class));
+    this.prop_saveName = aSaveName;
+    this.prop_selectedGraph = aSelectedGraph;
+    this.prop_graph = aGraph;
     this.prop_xCoord = aXCoord;
     this.prop_yCoord = aYCoord;
     this.prop_mode = aMode;
     this.prop_displayString = aDisplayString;
-    proto.initTo(this.prop_states, aStates);
+    proto.initTo(this.prop_savedGraphs, aSavedGraphs);
   };
   private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<Data> {
     private Html4JavaType() {
-      super(Data.class, DataModel.class, 5, 12);
-      registerProperty("states", 0, false);
-      registerProperty("xCoord", 1, false);
-      registerProperty("yCoord", 2, false);
-      registerProperty("mode", 3, false);
-      registerProperty("displayString", 4, false);
+      super(Data.class, DataModel.class, 9, 14);
+      registerProperty("options", 0, true);
+      registerProperty("saveName", 1, false);
+      registerProperty("selectedGraph", 2, false);
+      registerProperty("graph", 3, false);
+      registerProperty("savedGraphs", 4, false);
+      registerProperty("xCoord", 5, false);
+      registerProperty("yCoord", 6, false);
+      registerProperty("mode", 7, false);
+      registerProperty("displayString", 8, false);
       registerFunction("mousePressed", 0);
-      registerFunction("clearCanvas", 1);
-      registerFunction("handleMouseDown", 2);
-      registerFunction("handleMouseUp", 3);
-      registerFunction("updateMaus", 4);
-      registerFunction("refreshCanvas", 5);
-      registerFunction("initCanvas", 6);
-      registerFunction("resizeCanvas", 7);
-      registerFunction("dragMode", 8);
-      registerFunction("drawTransitionMode", 9);
-      registerFunction("addState", 10);
-      registerFunction("decreaseStates", 11);
+      registerFunction("saveGraph", 1);
+      registerFunction("loadGraph", 2);
+      registerFunction("clearCanvas", 3);
+      registerFunction("handleMouseDown", 4);
+      registerFunction("handleMouseUp", 5);
+      registerFunction("updateMaus", 6);
+      registerFunction("refreshCanvas", 7);
+      registerFunction("initCanvas", 8);
+      registerFunction("resizeCanvas", 9);
+      registerFunction("dragMode", 10);
+      registerFunction("drawTransitionMode", 11);
+      registerFunction("addState", 12);
+      registerFunction("decreaseStates", 13);
     }
     @Override public void setValue(Data data, int type, Object value) {
       switch (type) {
-        case 0: TYPE.replaceValue(data.getStates(), StateTupel.class, value); return;
-        case 1: data.setXCoord(TYPE.extractValue(java.lang.Integer.class, value)); return;
-        case 2: data.setYCoord(TYPE.extractValue(java.lang.Integer.class, value)); return;
-        case 3: data.setMode(TYPE.extractValue(java.lang.String.class, value)); return;
-        case 4: data.setDisplayString(TYPE.extractValue(java.lang.String.class, value)); return;
+        case 1: data.setSaveName(TYPE.extractValue(java.lang.String.class, value)); return;
+        case 2: data.setSelectedGraph(TYPE.extractValue(java.lang.String.class, value)); return;
+        case 3: data.setGraph(TYPE.extractValue(Graph.class, value)); return;
+        case 4: TYPE.replaceValue(data.getSavedGraphs(), Graph.class, value); return;
+        case 5: data.setXCoord(TYPE.extractValue(java.lang.Integer.class, value)); return;
+        case 6: data.setYCoord(TYPE.extractValue(java.lang.Integer.class, value)); return;
+        case 7: data.setMode(TYPE.extractValue(java.lang.String.class, value)); return;
+        case 8: data.setDisplayString(TYPE.extractValue(java.lang.String.class, value)); return;
       }
       throw new UnsupportedOperationException();
     }
     @Override public Object getValue(Data data, int type) {
       switch (type) {
-        case 0: return data.getStates();
-        case 1: return data.getXCoord();
-        case 2: return data.getYCoord();
-        case 3: return data.getMode();
-        case 4: return data.getDisplayString();
+        case 0: return data.getOptions();
+        case 1: return data.getSaveName();
+        case 2: return data.getSelectedGraph();
+        case 3: return data.getGraph();
+        case 4: return data.getSavedGraphs();
+        case 5: return data.getXCoord();
+        case 6: return data.getYCoord();
+        case 7: return data.getMode();
+        case 8: return data.getDisplayString();
       }
       throw new UnsupportedOperationException();
     }
@@ -119,36 +181,42 @@ public final class Data implements Cloneable {
           com.dukescript.demoapp.DataModel.mousePressed(model, model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
           return;
         case 1:
-          com.dukescript.demoapp.DataModel.clearCanvas();
+          com.dukescript.demoapp.DataModel.saveGraph();
           return;
         case 2:
-          com.dukescript.demoapp.DataModel.handleMouseDown();
+          com.dukescript.demoapp.DataModel.loadGraph();
           return;
         case 3:
-          com.dukescript.demoapp.DataModel.handleMouseUp();
+          com.dukescript.demoapp.DataModel.clearCanvas();
           return;
         case 4:
-          com.dukescript.demoapp.DataModel.updateMaus(model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
+          com.dukescript.demoapp.DataModel.handleMouseDown();
           return;
         case 5:
-          com.dukescript.demoapp.DataModel.refreshCanvas();
+          com.dukescript.demoapp.DataModel.handleMouseUp();
           return;
         case 6:
-          com.dukescript.demoapp.DataModel.initCanvas();
+          com.dukescript.demoapp.DataModel.updateMaus(model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
           return;
         case 7:
-          com.dukescript.demoapp.DataModel.resizeCanvas();
+          com.dukescript.demoapp.DataModel.refreshCanvas();
           return;
         case 8:
-          com.dukescript.demoapp.DataModel.dragMode();
+          com.dukescript.demoapp.DataModel.initCanvas();
           return;
         case 9:
-          com.dukescript.demoapp.DataModel.drawTransitionMode();
+          com.dukescript.demoapp.DataModel.resizeCanvas();
           return;
         case 10:
-          com.dukescript.demoapp.DataModel.addState();
+          com.dukescript.demoapp.DataModel.dragMode();
           return;
         case 11:
+          com.dukescript.demoapp.DataModel.drawTransitionMode();
+          return;
+        case 12:
+          com.dukescript.demoapp.DataModel.addState();
+          return;
+        case 13:
           com.dukescript.demoapp.DataModel.decreaseStates();
           return;
       }
@@ -171,21 +239,27 @@ public final class Data implements Cloneable {
   }
   private Data(net.java.html.BrwsrCtx c, Object json) {
     this(c);
-    Object[] ret = new Object[5];
+    Object[] ret = new Object[8];
     proto.extract(json, new String[] {
-      "states",
+      "saveName",
+      "selectedGraph",
+      "graph",
+      "savedGraphs",
       "xCoord",
       "yCoord",
       "mode",
       "displayString",
     }, ret);
-    for (Object e : useAsArray(ret[0])) {
-      this.prop_states.add(proto.read(StateTupel.class, e));
+    this.prop_saveName = (java.lang.String)ret[0];
+    this.prop_selectedGraph = (java.lang.String)ret[1];
+    this.prop_graph = proto.read(Graph.class, ret[2]);
+    for (Object e : useAsArray(ret[3])) {
+      this.prop_savedGraphs.add(proto.read(Graph.class, e));
     }
-    this.prop_xCoord = ret[1] == null ? 0 : (TYPE.numberValue(ret[1])).intValue();
-    this.prop_yCoord = ret[2] == null ? 0 : (TYPE.numberValue(ret[2])).intValue();
-    this.prop_mode = (java.lang.String)ret[3];
-    this.prop_displayString = (java.lang.String)ret[4];
+    this.prop_xCoord = ret[4] == null ? 0 : (TYPE.numberValue(ret[4])).intValue();
+    this.prop_yCoord = ret[5] == null ? 0 : (TYPE.numberValue(ret[5])).intValue();
+    this.prop_mode = (java.lang.String)ret[6];
+    this.prop_displayString = (java.lang.String)ret[7];
   }
   private static Object[] useAsArray(Object o) {
     return o instanceof Object[] ? ((Object[])o) : o == null ? new Object[0] : new Object[] { o };
@@ -193,8 +267,17 @@ public final class Data implements Cloneable {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append('{');
-    sb.append('"').append("states").append('"').append(":");
-    sb.append(TYPE.toJSON(prop_states));
+    sb.append('"').append("saveName").append('"').append(":");
+    sb.append(TYPE.toJSON(prop_saveName));
+    sb.append(',');
+    sb.append('"').append("selectedGraph").append('"').append(":");
+    sb.append(TYPE.toJSON(prop_selectedGraph));
+    sb.append(',');
+    sb.append('"').append("graph").append('"').append(":");
+    sb.append(TYPE.toJSON(prop_graph));
+    sb.append(',');
+    sb.append('"').append("savedGraphs").append('"').append(":");
+    sb.append(TYPE.toJSON(prop_savedGraphs));
     sb.append(',');
     sb.append('"').append("xCoord").append('"').append(":");
     sb.append(TYPE.toJSON(prop_xCoord));
@@ -215,7 +298,10 @@ public final class Data implements Cloneable {
   }
   private Data clone(net.java.html.BrwsrCtx ctx) {
     Data ret = new Data(ctx);
-    proto.cloneList(ret.getStates(), ctx, prop_states);
+    ret.prop_saveName = getSaveName();
+    ret.prop_selectedGraph = getSelectedGraph();
+    ret.prop_graph =  getGraph()  == null ? null : prop_graph.clone();
+    proto.cloneList(ret.getSavedGraphs(), ctx, prop_savedGraphs);
     ret.prop_xCoord = getXCoord();
     ret.prop_yCoord = getYCoord();
     ret.prop_mode = getMode();
@@ -238,7 +324,10 @@ This method binds to element '""' on the page
     if (o == this) return true;
     if (!(o instanceof Data)) return false;
     Data p = (Data)o;
-    if (!TYPE.isSame(prop_states, p.prop_states)) return false;
+    if (!TYPE.isSame(prop_saveName, p.prop_saveName)) return false;
+    if (!TYPE.isSame(prop_selectedGraph, p.prop_selectedGraph)) return false;
+    if (!TYPE.isSame(prop_graph, p.prop_graph)) return false;
+    if (!TYPE.isSame(prop_savedGraphs, p.prop_savedGraphs)) return false;
     if (!TYPE.isSame(prop_xCoord, p.prop_xCoord)) return false;
     if (!TYPE.isSame(prop_yCoord, p.prop_yCoord)) return false;
     if (!TYPE.isSame(prop_mode, p.prop_mode)) return false;
@@ -247,7 +336,10 @@ This method binds to element '""' on the page
   }
   public int hashCode() {
     int h = Data.class.getName().hashCode();
-    h = TYPE.hashPlus(prop_states, h);
+    h = TYPE.hashPlus(prop_saveName, h);
+    h = TYPE.hashPlus(prop_selectedGraph, h);
+    h = TYPE.hashPlus(prop_graph, h);
+    h = TYPE.hashPlus(prop_savedGraphs, h);
     h = TYPE.hashPlus(prop_xCoord, h);
     h = TYPE.hashPlus(prop_yCoord, h);
     h = TYPE.hashPlus(prop_mode, h);

@@ -10,7 +10,7 @@
             }
             #masterDiv{
             }
-            #controllsDiv {
+            #masterTable {
                 border-style: solid;
                 background-color:#CCFF99;
             }
@@ -21,45 +21,65 @@
                 font-size: 30px;
             }
             #validProblem{
-                 color: red;
+                color: red;
             }
         </style>
     </head>
     <body>
-        <div id="masterDiv">
-            <div id="controllsDiv">
-            <h1>State-Tool v1.0</h1>
-            <button data-bind="click: $root.resizeCanvas">Resize!</button>
-            <button data-bind="click: $root.decreaseStates">Remove State</button>
-            <br>
-            <button data-bind="click: $root.refreshCanvas">Refresh Canvas!</button>
-            <button data-bind="click: addState">Add State</button>
-            <div data-bind="foreach: states">
-            <span>Value</span>
-            <input data-bind="value: id, valueUpdate: 'afterkeydown'">
-            <button data-bind="click: removeTransition">Remove Transition</button>
-            <button data-bind="click: addTransition">Add Transition</button>
-                <div data-bind="foreach: transitions">
-                    <span>________________To</span>
-                    <input data-bind="value: to">
-                    <span>With (Value)</span>
-                    <input data-bind="value: value">
+        <table id="masterTable">
+            <tr>
+                <td>
+                    <div id="masterDiv">
+                        <div id="controllsDiv">
+                            <h1>State-Tool v1.0</h1>
+                            <button data-bind="click: $root.resizeCanvas">Resize!</button>
+                            <button data-bind="click: $root.decreaseStates">Remove State</button>
+                            <br>
+                            <button data-bind="click: addState">Add State</button>
+                            <button data-bind="click: $root.refreshCanvas">Refresh Canvas!</button>
+                            <br/>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div data-bind="foreach: graph().states">
+                        <button data-bind="click: $root.removeTransition">Remove Transition</button>
+                        <button data-bind="click: $root.addTransition">Add Transition</button>
+                        <input data-bind="value: id, valueUpdate: 'afterkeydown'">
+                        <div data-bind="foreach: transitions">
+                            <span>________________To</span>
+                            <input data-bind="value: to">
+                            <span>With (Value)</span>
+                            <input data-bind="value: value">
+                            <br>
+                        </div>
+                    </div>
+                    <button data-bind="click: dragMode">Drag</button>
+                    <button data-bind="click: drawTransitionMode">Draw Transition</button>
                     <br>
-                </div>
-            </div>
-            <button data-bind="click: dragMode">Drag</button>
-            <button data-bind="click: drawTransitionMode">Draw Transition</button>
-            <br>
-            <span data-bind="text: xCoord"></span>
-            <br>
-            <span data-bind="text: yCoord"></span>
-            <br>
-            <span id="mode" data-bind="text: displayString"></span>
-            </div>
-            <div id="canvasDiv">
-                <canvas id="myCanvas" style="cursor:crosshair" data-bind="event:{mousedown:handleMouseDown, mouseup:handleMouseUp}, mousepressed: mousePressed, customMouseover: updateMaus"></canvas>
-            </div>
-            </div>
+                    <span data-bind="text: xCoord"></span>
+                    <br>
+                    <span data-bind="text: yCoord"></span>
+                    <br>
+                    <span id="mode" data-bind="text: displayString"></span>
+
+                </td>
+                <td>
+                    <span>Savename</span>
+                    <input data-bind = "value: saveName" placeholder = "Enter Savename">
+                    <br/>
+                
+                    <button data-bind="click: $root.saveGraph">Save Graph</button>
+                    <button data-bind="click: $root.loadGraph">Load Graph</button>
+                </td>
+                <td>
+                    <select multiple data-bind="options: options, optionsCaption: 'Please select', value: selectedGraph"></select>
+                </td>
+            </tr>
+        </table>
+        <div id="canvasDiv">
+            <canvas id="myCanvas" style="cursor:crosshair" data-bind="event:{mousedown:handleMouseDown, mouseup:handleMouseUp}, mousepressed: mousePressed, customMouseover: updateMaus"></canvas>
+        </div>
         <!-- ${browser.bootstrap} -->
     </body>
 </html>

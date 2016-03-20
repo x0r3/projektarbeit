@@ -11,13 +11,17 @@ import java.util.LinkedList;
 import java.util.List;
 import net.java.html.js.JavaScriptBody;
 import net.java.html.json.Models;
+import netscape.javascript.JSException;
 
 
 
 
 
 @Model(className = "Data", targetId="", properties = {
-    @Property(name = "states", type= StateTupel.class, array = true),
+    @Property(name = "saveName", type = String.class),
+    @Property(name = "selectedGraph", type = String.class),
+    @Property(name = "graph", type= Graph.class),
+    @Property(name = "savedGraphs", type = Graph.class, array = true),
     // Für Anzeige der Mausposition im Canvas
     @Property(name = "xCoord", type = int.class),
     @Property(name = "yCoord", type = int.class),
@@ -26,6 +30,14 @@ import net.java.html.json.Models;
 })
 
 final class DataModel {
+    
+    @Model(className = "Graph", targetId="", properties = {
+        @Property(name = "graphName", type = String.class),
+        @Property(name = "states", type = StateTupel.class, array = true)
+    })
+    static class graphModel {
+        
+    }
     
     @Model(className = "StateTupel", targetId="", properties = {
         @Property(name="id", type = String.class),
@@ -71,6 +83,19 @@ final class DataModel {
     */
     // Schwachsinn oder nötig? Wieso kann man keine Setter/Getter bentuzen aus
     // einer ComputedProperty heraus?
+    
+    @ComputedProperty static java.util.List<String> options(java.util.List<Graph> savedGraphs){
+        List lst = new LinkedList<String>();
+        for(Graph g: savedGraphs){
+            lst.add(g.getGraphName());
+            System.out.println(g.getGraphName());
+
+        }
+        //System.out.println(g.getGraphName());
+        System.out.println("Saved Graphs: " + savedGraphs.size());
+        System.out.println("List Size: " + lst.size());
+        return lst;
+    }
 
     
     private static Data ui;
@@ -86,7 +111,6 @@ final class DataModel {
     private static Transition currentTransition;
     private static boolean drawing;
     
-    
 
 
     @Function
@@ -94,7 +118,7 @@ final class DataModel {
         //Aktualisiere Hilfskoordinaten
         updateMaus(realX, realY);
         if(ui.getMode().equals("Drag")){
-            for(StateTupel st: ui.getStates()){
+            for(StateTupel st: ui.getGraph().getStates()){
                 if(checkCollision(realX, realY, st)){
                     st.getCoords().set(1, realX);
                     st.getCoords().set(2, realY);
@@ -111,6 +135,55 @@ final class DataModel {
         draw();
     }
     
+    
+    //Problem: ComputedProperty options funktioniert nicht wie gewollt.
+    //Will man auf die Namen der Saves über die Liste der Saves so gibt es Probleme beim Speichern (Vervielfältigung)
+    
+    @Function
+    static void saveGraph() throws Exception{
+
+        /*
+        Graph gr = new Graph();
+        ui.getGraph().setGraphName(ui.getSaveName());
+        gr = ui.getGraph();
+        //Notwendig da sonst Nullpointers fliegen aufgrund der Getter
+        String var = gr.getGraphName();
+            if(var == null){
+                ui.getGraph().setGraphName("Unnamed Graph");
+                ui.getSavedGraphs().add(gr);
+            }else{
+                ui.getSavedGraphs().add(gr);
+                
+            }
+        draw();
+        */
+        ui.getGraph().setGraphName("asdasdas");
+        ui.getGraph().getStates().add(new StateTupel());
+        
+        Graph test = new Graph();
+        test = ui.getGraph().clone();
+
+        
+        
+        
+        /* DIESE ZEILEN CODE FÜHREN HIER ZU EINER NULLPONTER 
+        Graph gr = new Graph();
+        Graph gr2 = ui.getGraph().clone();
+        ui.setGraph(gr2); // bringt auch nichts
+        */
+    }
+    
+    @Function
+    static void loadGraph(){
+
+        System.out.println("LoadGraph fired!");
+        for(Graph g: ui.getSavedGraphs()){              
+            
+            System.out.println(g.getGraphName());
+            
+        }        
+    }
+    
     static boolean checkCollision(double mouseX, double mouseY, StateTupel st){
         
         int stX = st.getCoords().get(1);
@@ -118,7 +191,7 @@ final class DataModel {
         int d = st.getDiameter();
         
         if((mouseX < (stX + d)) && (mouseX > (stX - d)) && (mouseY > (stY - d)) && (mouseY < (stY + d))){
-         return true;
+            return true;
         }  
         else return false;
     }
@@ -132,7 +205,7 @@ final class DataModel {
     @Function static void handleMouseDown(){
         
         
-        for(StateTupel st: ui.getStates()){
+        for(StateTupel st: ui.getGraph().getStates()){
             if(checkCollision(ui.getXCoord(), ui.getYCoord(), st)){
                 drawing = true;
                 System.out.println("handleMouseDown: Collision detected: UI-Coords with: " + st.getId());
@@ -152,7 +225,7 @@ final class DataModel {
         drawing = false;
         if(ui.getMode().equals("drawTransition")){
             StateTupel from = TupelInFocus;
-            for(StateTupel st : ui.getStates()){
+            for(StateTupel st : ui.getGraph().getStates()){
                 if(checkCollision(ui.getXCoord(),ui.getYCoord(), st)){
                     System.out.println("handleMouseUp: Collision detected: UI-Coords with " + st.getId());
                     
@@ -234,9 +307,9 @@ final class DataModel {
         clearCanvas();
         //Zeichne Transitionen zuerst um überlappungen zu vermeiden
         int i = 0;
-        for(StateTupel st: ui.getStates()){
+        for(StateTupel st: ui.getGraph().getStates()){
             for(Transition t: st.getTransitions()){
-                for(StateTupel st2: ui.getStates()){
+                for(StateTupel st2: ui.getGraph().getStates()){
                     if(st2.getId().equals(t.getTo())){
 
                         ctx.beginPath();
@@ -308,7 +381,7 @@ final class DataModel {
             }
         }
         //Zeichne Zustände
-        for(StateTupel st: ui.getStates()){
+        for(StateTupel st: ui.getGraph().getStates()){
 
             ctx.beginPath();
             // Hier ebenfalls durchmesser in Abhängigkeit von der Wortlänge
@@ -386,33 +459,34 @@ final class DataModel {
     @Function static void addState(){
   
         StateTupel st = new StateTupel();
+        
         // Mir fällt gerade keine bessere Variante zum initialisieren ein
         st.getCoords().add(null);
         st.getCoords().add(null);
         st.getCoords().add(null);
         
         
-        if(ui.getStates().size() < 6){
+        if(ui.getGraph().getStates().size() < 6){
             st.setColor("rgb(" + (int)(Math.random() *  256) + "," + (int)(Math.random() *  256) + "," + (int)(Math.random() *  256) + ")");
             st.getCoords().set(2, 100);
-            st.getCoords().set(1, (ui.getStates().size() * 100) + 50);
+            st.getCoords().set(1, (ui.getGraph().getStates().size() * 100) + 50);
         }
         else{
             st.setColor("rgb(" + (int)(Math.random() *  256) + "," + (int)(Math.random() *  256) + "," + (int)(Math.random() *  256) + ")");
             st.getCoords().set(2, 200);
-            st.getCoords().set(1,(ui.getStates().size() * 100) - 500);
+            st.getCoords().set(1,(ui.getGraph().getStates().size() * 100) - 500);
                 }
         
         st.setDiameter(25);
-        st.setId("State " + ui.getStates().size());
+        st.setId("State " + ui.getGraph().getStates().size());
         //st.getTransitions().add(new Transition());
-        ui.getStates().add(st);
+        ui.getGraph().getStates().add(st);
         draw();
         
     }
     
     @Function static void decreaseStates(){
-        ui.getStates().remove(ui.getStates().size()-1);
+        ui.getGraph().getStates().remove(ui.getGraph().getStates().size()-1);
         draw();
     }
     /**
@@ -426,7 +500,7 @@ final class DataModel {
         Dialogs.registerMouseBinding();
         Dialogs.registerMouseBinding2();
         ui = new Data();
-        
+        ui.setGraph(new Graph());
         Transition t = new Transition();
         t.getCoordsFrom().add(0, 0);
         t.getCoordsFrom().add(1, 0);
@@ -435,15 +509,17 @@ final class DataModel {
         t.getCoordsTo().add(1, 0);
         t.getCoordsTo().add(2, 0);
         currentTransition = t;
-      
         // Startzustand erzeugen
         addState();
         addState();
-        ui.setMode("drawTransition");
+        addState();
         
+        ui.setMode("drawTransition");
         resizeCanvas();
         draw();
+
         ui.applyBindings();
+
     }
     
     public class Test {

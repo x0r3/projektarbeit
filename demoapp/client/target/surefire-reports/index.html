@@ -90,7 +90,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">3 methods,   3 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -99,6 +99,16 @@
                       <a href="#" panel-name="suite-Surefire_suite" class="show-methods passed suite-Surefire_suite"> (show)</a> <!-- show-methods passed suite-Surefire_suite -->
                     </span>
                     <div class="method-list-content passed suite-Surefire_suite">
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="com.dukescript.demoapp.DataModelTest" hash-for-method="add">add</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="com.dukescript.demoapp.DataModelTest" hash-for-method="connect">connect</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
                       <span>
                         <img width="3%" src="passed.png"/>
                         <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="com.dukescript.demoapp.DataModelTest" hash-for-method="testUIModelWithoutUI">testUIModelWithoutUI</a> <!-- method navigator-link -->
@@ -122,6 +132,20 @@
               <span class="class-name">com.dukescript.demoapp.DataModelTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="add">
+                  </a> <!-- add -->
+                  <span class="method-name">add</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="connect">
+                  </a> <!-- connect -->
+                  <span class="method-name">connect</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
                   <a name="testUIModelWithoutUI">
@@ -182,16 +206,24 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(3);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'testUIModelWithoutUI')
+data.setCell(0, 1, 'add')
 data.setCell(0, 2, 'com.dukescript.demoapp.DataModelTest')
-data.setCell(0, 3, 48);
+data.setCell(0, 3, 62);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'connect')
+data.setCell(1, 2, 'com.dukescript.demoapp.DataModelTest')
+data.setCell(1, 3, 11);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'testUIModelWithoutUI')
+data.setCell(2, 2, 'com.dukescript.demoapp.DataModelTest')
+data.setCell(2, 3, 2);
 window.suiteTableData['Surefire_suite']= { tableData: data, tableDiv: 'times-div-Surefire_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 48 ms</span>
+              <span class="suite-total-time">Total running time: 75 ms</span>
               <div id="times-div-Surefire_suite">
               </div> <!-- times-div-Surefire_suite -->
             </div> <!-- times-div -->
@@ -219,8 +251,16 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">com.dukescript.demoapp.DataModelTest</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <span class="method-name">testUIModelWithoutUI</span>
+                <span class="method-name">add</span>
                 <span class="method-start">0 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">connect</span>
+                <span class="method-start">63 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
+                <span class="method-name">testUIModelWithoutUI</span>
+                <span class="method-start">74 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
