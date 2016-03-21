@@ -2,20 +2,20 @@
 <testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="86" started-at="2016-03-20T17:04:35Z" finished-at="2016-03-20T17:04:35Z">
+  <suite name="Surefire suite" duration-ms="129" started-at="2016-03-21T15:21:51Z" finished-at="2016-03-21T15:21:51Z">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="86" started-at="2016-03-20T17:04:35Z" finished-at="2016-03-20T17:04:35Z">
+    <test name="Surefire test" duration-ms="129" started-at="2016-03-21T15:21:51Z" finished-at="2016-03-21T15:21:51Z">
       <class name="com.dukescript.demoapp.DataModelTest">
-        <test-method status="PASS" signature="add()[pri:0, instance:com.dukescript.demoapp.DataModelTest@4cdbe50f]" name="add" duration-ms="62" started-at="2016-03-20T18:04:35Z" finished-at="2016-03-20T18:04:35Z">
+        <test-method status="PASS" signature="add()[pri:0, instance:com.dukescript.demoapp.DataModelTest@6debcae2]" name="add" duration-ms="91" started-at="2016-03-21T16:21:51Z" finished-at="2016-03-21T16:21:51Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- add -->
-        <test-method status="PASS" signature="connect()[pri:0, instance:com.dukescript.demoapp.DataModelTest@4cdbe50f]" name="connect" duration-ms="11" started-at="2016-03-20T18:04:35Z" finished-at="2016-03-20T18:04:35Z">
+        <test-method status="PASS" signature="connect()[pri:0, instance:com.dukescript.demoapp.DataModelTest@6debcae2]" name="connect" duration-ms="20" started-at="2016-03-21T16:21:51Z" finished-at="2016-03-21T16:21:51Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- connect -->
-        <test-method status="PASS" signature="testUIModelWithoutUI()[pri:0, instance:com.dukescript.demoapp.DataModelTest@4cdbe50f]" name="testUIModelWithoutUI" duration-ms="2" started-at="2016-03-20T18:04:35Z" finished-at="2016-03-20T18:04:35Z">
+        <test-method status="PASS" signature="testUIModelWithoutUI()[pri:0, instance:com.dukescript.demoapp.DataModelTest@6debcae2]" name="testUIModelWithoutUI" duration-ms="3" started-at="2016-03-21T16:21:51Z" finished-at="2016-03-21T16:21:51Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testUIModelWithoutUI -->

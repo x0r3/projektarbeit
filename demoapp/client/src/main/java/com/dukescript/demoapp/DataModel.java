@@ -50,10 +50,12 @@ final class DataModel {
         
             @Function static void removeTransition(StateTupel st){      
             st.getTransitions().remove(st.getTransitions().size()-1);
+            System.out.println("Remove Transition triggered");
             }
             
             @Function static void addTransition(StateTupel st){  
             st.getTransitions().add(new Transition());
+            System.out.println("Add Transition triggered");
             
             }
     }
@@ -142,7 +144,7 @@ final class DataModel {
     @Function
     static void saveGraph() throws Exception{
 
-        /*
+        
         Graph gr = new Graph();
         ui.getGraph().setGraphName(ui.getSaveName());
         gr = ui.getGraph();
@@ -156,17 +158,10 @@ final class DataModel {
                 
             }
         draw();
-        */
-        ui.getGraph().setGraphName("asdasdas");
-        ui.getGraph().getStates().add(new StateTupel());
-        
-        Graph test = new Graph();
-        test = ui.getGraph().clone();
-
         
         
         
-        /* DIESE ZEILEN CODE FÜHREN HIER ZU EINER NULLPONTER 
+        /* DIESE ZEILEN CODE FÜHREN HIER ZU EINER NULLPONTER AM ENDE DER MAIN NICHT MEHR
         Graph gr = new Graph();
         Graph gr2 = ui.getGraph().clone();
         ui.setGraph(gr2); // bringt auch nichts
@@ -183,7 +178,7 @@ final class DataModel {
             
         }        
     }
-    
+    // Überprüft ob die Maus sich aktuell über einem relevanten Objekt befindet
     static boolean checkCollision(double mouseX, double mouseY, StateTupel st){
         
         int stX = st.getCoords().get(1);
@@ -197,9 +192,11 @@ final class DataModel {
     }
     
 
-    
+    //
     @Function static void clearCanvas(){
         ctx.clearRect(0, 0, ctx.getWidth(), ctx.getHeight());
+        //ui.setGraph(new Graph());
+        
     }
     
     @Function static void handleMouseDown(){
@@ -269,6 +266,12 @@ final class DataModel {
         ui.setXCoord(realX);
         ui.setYCoord(realY);
         
+    }
+    
+    @Function static void newCanvas(){
+        ctx.clearRect(0, 0, ctx.getWidth(), ctx.getHeight());
+        ui.setGraph(new Graph());
+        draw();
     }
     
     @Function static void refreshCanvas(){
@@ -459,7 +462,7 @@ final class DataModel {
     @Function static void addState(){
   
         StateTupel st = new StateTupel();
-        
+
         // Mir fällt gerade keine bessere Variante zum initialisieren ein
         st.getCoords().add(null);
         st.getCoords().add(null);
@@ -510,10 +513,10 @@ final class DataModel {
         t.getCoordsTo().add(2, 0);
         currentTransition = t;
         // Startzustand erzeugen
+
         addState();
-        addState();
-        addState();
-        
+        addState();        
+
         ui.setMode("drawTransition");
         resizeCanvas();
         draw();
