@@ -50,12 +50,12 @@ final class DataModel {
         
             @Function static void removeTransition(StateTupel st){      
             st.getTransitions().remove(st.getTransitions().size()-1);
-            System.out.println("Remove Transition triggered");
+            draw();
             }
             
             @Function static void addTransition(StateTupel st){  
             st.getTransitions().add(new Transition());
-            System.out.println("Add Transition triggered");
+            draw();
             
             }
     }
@@ -112,6 +112,11 @@ final class DataModel {
     private static StateTupel TupelInFocus;
     private static Transition currentTransition;
     private static boolean drawing;
+    private static boolean dragging;
+    //Zur Zwischenspeicherung von Koordinaten zur Berechnung von Ausgleichswerten für die intuitive Verschiebung
+    //von Zuständen (Verhinderung des ruckartigen Sprungs im ersten Frame)
+    private static int x;
+    private static int y;
     
 
 
@@ -122,8 +127,15 @@ final class DataModel {
         if(ui.getMode().equals("Drag")){
             for(StateTupel st: ui.getGraph().getStates()){
                 if(checkCollision(realX, realY, st)){
-                    st.getCoords().set(1, realX);
-                    st.getCoords().set(2, realY);
+                    //Berechnung der bereinigten Koordinaten des Objektes (Berücksichtigung
+                    //von Ort des Maus + Ort des Objektes -> Verhindern des ruckartigen
+                    //verschiebens beim ersten Frame)
+                    int deltax;
+                    int deltay;
+                    deltax = realX - x;
+                    deltay = realY - y;
+                    st.getCoords().set(1, deltax);
+                    st.getCoords().set(2, deltay);
                     
                 }   
             }
@@ -144,7 +156,7 @@ final class DataModel {
     @Function
     static void saveGraph() throws Exception{
 
-        
+        //Noch fehlerhaft
         Graph gr = new Graph();
         ui.getGraph().setGraphName(ui.getSaveName());
         gr = ui.getGraph();
@@ -192,15 +204,15 @@ final class DataModel {
     }
     
 
-    //
+    //Löschen des Canvas-Frames damit ein neues Frame gezeichnet werden kann ohne
+    //Überlappungen zu erzeugen.
     @Function static void clearCanvas(){
         ctx.clearRect(0, 0, ctx.getWidth(), ctx.getHeight());
-        //ui.setGraph(new Graph());
         
     }
-    
-    @Function static void handleMouseDown(){
-        
+    //Wird nur einmal bei einem Mausklick ausgeführt, genutzt um benötigte Variablen zu
+    //initialisieren und das Objekt im Fokus zu bestimmen
+    @Function static void handleMouseDown(Data model, int realX, int realY){
         
         for(StateTupel st: ui.getGraph().getStates()){
             if(checkCollision(ui.getXCoord(), ui.getYCoord(), st)){
@@ -214,12 +226,19 @@ final class DataModel {
                     currentTransition.getCoordsFrom().set(2, ui.getYCoord());
                 
                 }
+                if(ui.getMode().equals("Drag")){
+                    x = ui.getXCoord() - st.getCoords().get(1);
+                    y = ui.getYCoord() - st.getCoords().get(2);
+                    dragging = true;
+                }
             }   
         }
     }
-     
+     //Wird einmal beim Ablassen von der Maus ausgeführt, benutzt um Abschließende Operationen
+    // auszuführen -> Erzeugen, hinzufügen eines Übergangs
     @Function static void handleMouseUp(){
         drawing = false;
+        dragging = false;
         if(ui.getMode().equals("drawTransition")){
             StateTupel from = TupelInFocus;
             for(StateTupel st : ui.getGraph().getStates()){
@@ -261,26 +280,27 @@ final class DataModel {
         }
 
     }
-    
+    //Um die Koordinaten auf der GUI aktuell zu halten.
     @Function static void updateMaus(int realX, int realY){
         ui.setXCoord(realX);
         ui.setYCoord(realY);
         
     }
-    
+    //Wenn der benutzer den aktuellen Graph verwerfen will. Zeichnet das Canvas neu +
+    //erzeugt neuen Graph.
     @Function static void newCanvas(){
         ctx.clearRect(0, 0, ctx.getWidth(), ctx.getHeight());
         ui.setGraph(new Graph());
         draw();
     }
-    
+    //Hilfsfunktion
     @Function static void refreshCanvas(){
         resizeCanvas();
         clearCanvas();
         initCanvas();
         draw();
     }
-
+    //Zur initialisierung der Anwendung.
     @Function static void initCanvas(){
         gridSize = 100;
         gridCountWidth = (ctx.getWidth()/gridSize);
@@ -303,10 +323,10 @@ final class DataModel {
             ctx.stroke();
         }
     }
-    
+    // Zentrale Zeichenmethode. Iteriert über alle Zustände + Übergänge der Zustände und
+    // zeichnet sie anhand ihrer Koordinaten
     static void draw(){
-        //initCanvas();
-        //refreshCanvas();
+
         clearCanvas();
         //Zeichne Transitionen zuerst um überlappungen zu vermeiden
         int i = 0;
@@ -314,30 +334,23 @@ final class DataModel {
             for(Transition t: st.getTransitions()){
                 for(StateTupel st2: ui.getGraph().getStates()){
                     if(st2.getId().equals(t.getTo())){
-
+                        //Beginne mit dem Zeichnen von Transitionen
                         ctx.beginPath();
                         ctx.moveTo(st.getCoords().get(1), st.getCoords().get(2));
                         ctx.lineTo(st2.getCoords().get(1), st2.getCoords().get(2));
                         ctx.stroke();
                         
+                        //Relevante Koordinaten zur Darstellung des Pfeils
                         double dx = (st.getCoords().get(1) - st2.getCoords().get(1)) / 2.0;
                         double dy = (st.getCoords().get(2) - st2.getCoords().get(2)) / 2.0;
-                        
                         double absdx = Math.abs(st.getCoords().get(1) - st2.getCoords().get(1)) / 2.0;
                         double absdy = Math.abs(st.getCoords().get(2) - st2.getCoords().get(2)) / 2.0;
                         
-                        //Domenico
+                        //Zur Anpassung der Ausrichtung des Pfeils einer Transition auf den aktuellen Ort seines
+                        //Zielzustandes.
                         double angle = 0.0;
                         angle = Math.toDegrees(Math.atan2(dy, dx));
                         angle = angle - 90;
-                        /*
-                        System.out.println("dx: " + dx);
-                        System.out.println("dy: " + dy);
-                        System.out.println("absdx: " + absdx);
-                        System.out.println("absdy: " + absdy);
-                        System.out.println("sin(absdx/absdy): " + ((Math.asin(dy / dx))/2 * Math.PI) * 180.0); // Noch zu überarbeiten
-                        System.out.println("sin(absdx/absdy * (-1)): " + Math.asin(absdy / absdx * (-1.0))); // ebenso
-                        */
                         
                         /*
                         Um Seiteneffekte beim Zeichnen des Zeigers zu verhindern.
@@ -364,7 +377,7 @@ final class DataModel {
                         }
                         else{
                             drawCursor(st.getCoords().get(1) - absdx * (-1.0), Math.abs(st.getCoords().get(2)) - absdy, angle);
-
+                            //Hilfereiche Kontrollausgaben der einzelnen Koordinaten
                             double deg;
                             System.out.println("dx: " + dx);
                             System.out.println("dy: " + dy);
@@ -382,10 +395,11 @@ final class DataModel {
                     }
                 }
             }
+            
         }
-        //Zeichne Zustände
+        //Zeichnen der Zustände nach den Transitionen um das Problem der durchgezogenen Linie zu umgehen
         for(StateTupel st: ui.getGraph().getStates()){
-
+            
             ctx.beginPath();
             // Hier ebenfalls durchmesser in Abhängigkeit von der Wortlänge
             int newDiameter = 10 +  st.getId().length() * 4;
@@ -393,23 +407,36 @@ final class DataModel {
             ctx.arc(st.getCoords().get(1), st.getCoords().get(2),newDiameter, 0, 2 * Math.PI, true);
             ctx.setFillStyle(new Style.Color(st.getColor()));
             ctx.fill();
+            // Zeichne den aktuell im Fokus stehenden Zustand mit highlightening
+            
+            if(st.equals(TupelInFocus)){
+                ctx.beginPath();
+                ctx.setStrokeStyle(new Style.Color("rgb(64, 255, 0)"));
+                ctx.arc(st.getCoords().get(1), st.getCoords().get(2),newDiameter + 2, 0, 2 * Math.PI, true);
+                ctx.setLineWidth(5);
+                ctx.stroke();
+            }
+            
+            ctx.setLineWidth(1);
             // Um den Text mittiger zu gestalten verschiebe ich den Text in X-Achse in Abhängigkeit der Wortlänge
+            ctx.beginPath();
+            ctx.setStrokeStyle(new Style.Color("Black"));
             ctx.strokeText(st.getId(), st.getCoords().get(1) - (st.getId().length() * 2.2), st.getCoords().get(2));
-            ctx.setStrokeStyle(new Style.Color("Lightred"));
             ctx.stroke();
             i++;
             // Zeichne die aktuell gezogene Transition
             ctx.beginPath();
+            ctx.setStrokeStyle(new Style.Color("Black"));
             ctx.moveTo(currentTransition.getCoordsFrom().get(1), currentTransition.getCoordsFrom().get(2));
             ctx.lineTo(currentTransition.getCoordsTo().get(1), currentTransition.getCoordsTo().get(2));
             ctx.stroke();
-
-            
-        } 
+        }
+       
     }
     
+    //Zeichnet einen Pfeil. Die Variablen x und y entsprechen dem Ort, angle entspricht der Ausrichtung von diesen
+    //Koordinaten im Gradmaß.
     static void drawCursor(double x, double y, double angle){
-        
         
         ctx.beginPath();
         double tempXTip = x + 15 * Math.sin(2 * Math.PI / 360 * angle);
@@ -430,9 +457,9 @@ final class DataModel {
     
     }
     
+    //Passt Höhe und Breite des Canvas der aktuellen Größe des Fenster an
     @Function static void resizeCanvas(){
         
-
         screenWidth = Dialogs.getSreenWidth();
         screenHeight = Dialogs.getSreenHeight();
         guiWidth = Dialogs.getGuiWidth();
@@ -447,18 +474,23 @@ final class DataModel {
         System.out.println("GUI Height: " + guiHeight);
     }
     
+    //Zum wechseln des Modus auf Dragging-Modus
     @Function static void dragMode(){
         ui.setMode("Drag");
         ui.setDisplayString("Mode: Drag & Drop");
         
         
     }
+    //Zum wechseln des Modus auf Zeichen-Modus
     @Function static void drawTransitionMode(){
         
         ui.setMode("drawTransition");
         ui.setDisplayString("Mode: Transition Drawing");
     }
     
+    //Erzeugt einen neuen Zustand und fügt ihn der Collection der Zustände hinzu. Die Farbfindung erfolgt zufällig.
+    //Erreicht ein Zustand einen Ort zu weit Rechts des Canvas, wird in einer Reihe drunter neu angefangen
+    //auszurichten
     @Function static void addState(){
   
         StateTupel st = new StateTupel();
@@ -513,14 +545,11 @@ final class DataModel {
         t.getCoordsTo().add(2, 0);
         currentTransition = t;
         // Startzustand erzeugen
-
         addState();
         addState();        
-
         ui.setMode("drawTransition");
         resizeCanvas();
         draw();
-
         ui.applyBindings();
 
     }

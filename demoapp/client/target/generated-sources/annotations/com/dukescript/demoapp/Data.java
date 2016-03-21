@@ -123,7 +123,7 @@ public final class Data implements Cloneable {
   };
   private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<Data> {
     private Html4JavaType() {
-      super(Data.class, DataModel.class, 9, 14);
+      super(Data.class, DataModel.class, 9, 15);
       registerProperty("options", 0, true);
       registerProperty("saveName", 1, false);
       registerProperty("selectedGraph", 2, false);
@@ -140,13 +140,14 @@ public final class Data implements Cloneable {
       registerFunction("handleMouseDown", 4);
       registerFunction("handleMouseUp", 5);
       registerFunction("updateMaus", 6);
-      registerFunction("refreshCanvas", 7);
-      registerFunction("initCanvas", 8);
-      registerFunction("resizeCanvas", 9);
-      registerFunction("dragMode", 10);
-      registerFunction("drawTransitionMode", 11);
-      registerFunction("addState", 12);
-      registerFunction("decreaseStates", 13);
+      registerFunction("newCanvas", 7);
+      registerFunction("refreshCanvas", 8);
+      registerFunction("initCanvas", 9);
+      registerFunction("resizeCanvas", 10);
+      registerFunction("dragMode", 11);
+      registerFunction("drawTransitionMode", 12);
+      registerFunction("addState", 13);
+      registerFunction("decreaseStates", 14);
     }
     @Override public void setValue(Data data, int type, Object value) {
       switch (type) {
@@ -190,7 +191,7 @@ public final class Data implements Cloneable {
           com.dukescript.demoapp.DataModel.clearCanvas();
           return;
         case 4:
-          com.dukescript.demoapp.DataModel.handleMouseDown();
+          com.dukescript.demoapp.DataModel.handleMouseDown(model, model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
           return;
         case 5:
           com.dukescript.demoapp.DataModel.handleMouseUp();
@@ -199,24 +200,27 @@ public final class Data implements Cloneable {
           com.dukescript.demoapp.DataModel.updateMaus(model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
           return;
         case 7:
-          com.dukescript.demoapp.DataModel.refreshCanvas();
+          com.dukescript.demoapp.DataModel.newCanvas();
           return;
         case 8:
-          com.dukescript.demoapp.DataModel.initCanvas();
+          com.dukescript.demoapp.DataModel.refreshCanvas();
           return;
         case 9:
-          com.dukescript.demoapp.DataModel.resizeCanvas();
+          com.dukescript.demoapp.DataModel.initCanvas();
           return;
         case 10:
-          com.dukescript.demoapp.DataModel.dragMode();
+          com.dukescript.demoapp.DataModel.resizeCanvas();
           return;
         case 11:
-          com.dukescript.demoapp.DataModel.drawTransitionMode();
+          com.dukescript.demoapp.DataModel.dragMode();
           return;
         case 12:
-          com.dukescript.demoapp.DataModel.addState();
+          com.dukescript.demoapp.DataModel.drawTransitionMode();
           return;
         case 13:
+          com.dukescript.demoapp.DataModel.addState();
+          return;
+        case 14:
           com.dukescript.demoapp.DataModel.decreaseStates();
           return;
       }
