@@ -233,6 +233,7 @@ final class DataModel {
                 }
             }   
         }
+        draw();
     }
      //Wird einmal beim Ablassen von der Maus ausgeführt, benutzt um Abschließende Operationen
     // auszuführen -> Erzeugen, hinzufügen eines Übergangs
@@ -521,7 +522,14 @@ final class DataModel {
     }
     
     @Function static void decreaseStates(){
-        ui.getGraph().getStates().remove(ui.getGraph().getStates().size()-1);
+        
+        for(int i = 0; i < ui.getGraph().getStates().size(); i ++){
+            if(ui.getGraph().getStates().get(i).getId().equals(TupelInFocus.getId())){
+                ui.getGraph().getStates().remove(i);
+            }
+                
+        }
+        //ui.getGraph().getStates().remove(ui.getGraph().getStates().size()-1);
         draw();
     }
     /**

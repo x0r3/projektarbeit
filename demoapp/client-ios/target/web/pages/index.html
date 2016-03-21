@@ -9,6 +9,7 @@
                 background-color:#EEF5FF;
             }
             #masterDiv{
+                
             }
             #masterTable {
                 border-style: solid;
@@ -23,39 +24,42 @@
             #validProblem{
                 color: red;
             }
+            #leftSegment{
+                background-color:#a6ff4d;
+            }
         </style>
     </head>
     <body>
         <table id="masterTable">
             <tr>
-                <td>
+                <td valign = "top" id="leftSegment">
                     <div id="masterDiv">
                         <div id="controllsDiv">
                             <h1>State-Tool v1.0</h1>
                             <button data-bind="click: $root.resizeCanvas">Resize!</button>
-                            <button data-bind="click: $root.decreaseStates">Remove State</button>
+                            <button data-bind="click: newCanvas">Refresh Canvas!</button>
                             <br>
+                            <button data-bind="click: decreaseStates">Remove State</button>
                             <button data-bind="click: addState">Add State</button>
-                            <button data-bind="click: $root.refreshCanvas">Refresh Canvas!</button>
+                            <br>
+                            <button data-bind="click: dragMode">Drag</button>
+                            <button data-bind="click: drawTransitionMode">Draw Transition</button>
                             <br/>
                         </div>
                     </div>
                 </td>
                 <td>
                     <div data-bind="foreach: graph().states">
-                        <button data-bind="click: $root.removeTransition">Remove Transition</button>
-                        <button data-bind="click: $root.addTransition">Add Transition</button>
+                        <span>From</span>
                         <input data-bind="value: id, valueUpdate: 'afterkeydown'">
+                        <button data-bind="click: removeTransition">Remove Transition</button>
+                        <button data-bind="click: addTransition">Add Transition</button>
                         <div data-bind="foreach: transitions">
-                            <span>________________To</span>
+                            <span>To</span>
                             <input data-bind="value: to">
-                            <span>With (Value)</span>
-                            <input data-bind="value: value">
                             <br>
                         </div>
                     </div>
-                    <button data-bind="click: dragMode">Drag</button>
-                    <button data-bind="click: drawTransitionMode">Draw Transition</button>
                     <br>
                     <span data-bind="text: xCoord"></span>
                     <br>
@@ -72,8 +76,8 @@
                     <button data-bind="click: $root.saveGraph">Save Graph</button>
                     <button data-bind="click: $root.loadGraph">Load Graph</button>
                 </td>
-                <td>
-                    <select multiple data-bind="options: options, optionsCaption: 'Please select', value: selectedGraph"></select>
+                <td> <!-- mal mit text: Binding probieren um auf das ausgewählte Element zugreifen zu können -->
+                    <select multiple data-bind="options: options, optionsCaption: 'Please select'"></select>
                 </td>
             </tr>
         </table>
