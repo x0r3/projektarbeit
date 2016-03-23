@@ -1,27 +1,27 @@
 package com.dukescript.demoapp;
 
+import net.java.html.BrwsrCtx;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
-public class DataModelTest {
-    @Test public void testUIModelWithoutUI() {
-        Data model = new Data();
-    }
+public class DataViewModelTest {
+
     @Test public void add(){
         Data model = new Data();
+        model.setSaveName("Test");
         for(int i = 0; i < 10; i++){
             model.getGraph().getStates().add(new StateTupel());
         }
         assertTrue(model.getGraph().getStates().size() == 10);
     }
     
-    @Test public void connect(){
+    @Test public void enableDisableTest(){
+        /*
         Data model = new Data();
-        for(int i = 0; i < 10; i++){
-            model.getGraph().getStates().add(new StateTupel());
-        }
-        for(StateTupel t : model.getGraph().getStates()){
-            
-        }
+        model.setSaveName("Test");
+        assertTrue(model.isSaveEnabled());
+        */
+        
     }
+
 }

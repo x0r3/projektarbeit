@@ -3,6 +3,23 @@ import net.java.html.json.*;
 public final class Data implements Cloneable {
   private static final Html4JavaType TYPE = new Html4JavaType();
   private final org.netbeans.html.json.spi.Proto proto;
+  public boolean isSaveEnabled() {
+    java.lang.String arg1 = getSaveName();
+    try {
+      proto.acquireLock();
+      return com.dukescript.demoapp.DataModel.saveEnabled(arg1);
+    } finally {
+      proto.releaseLock();
+    }
+  }
+  public boolean isDeleteStateEnabled() {
+    try {
+      proto.acquireLock();
+      return com.dukescript.demoapp.DataModel.deleteStateEnabled();
+    } finally {
+      proto.releaseLock();
+    }
+  }
   public java.util.List<java.lang.String> getOptions() {
     java.util.List<Graph> arg1 = getSavedGraphs();
     try {
@@ -23,6 +40,7 @@ public final class Data implements Cloneable {
     if (TYPE.isSame(o , v)) return;
     prop_saveName = v;
     proto.valueHasMutated("saveName", o, v);
+    proto.valueHasMutated("saveEnabled", null, isSaveEnabled());
   }
   private java.lang.String prop_selectedGraph;
   public java.lang.String getSelectedGraph() {
@@ -123,16 +141,18 @@ public final class Data implements Cloneable {
   };
   private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<Data> {
     private Html4JavaType() {
-      super(Data.class, DataModel.class, 9, 15);
-      registerProperty("options", 0, true);
-      registerProperty("saveName", 1, false);
-      registerProperty("selectedGraph", 2, false);
-      registerProperty("graph", 3, false);
-      registerProperty("savedGraphs", 4, false);
-      registerProperty("xCoord", 5, false);
-      registerProperty("yCoord", 6, false);
-      registerProperty("mode", 7, false);
-      registerProperty("displayString", 8, false);
+      super(Data.class, DataModel.class, 11, 15);
+      registerProperty("saveEnabled", 0, true);
+      registerProperty("deleteStateEnabled", 1, true);
+      registerProperty("options", 2, true);
+      registerProperty("saveName", 3, false);
+      registerProperty("selectedGraph", 4, false);
+      registerProperty("graph", 5, false);
+      registerProperty("savedGraphs", 6, false);
+      registerProperty("xCoord", 7, false);
+      registerProperty("yCoord", 8, false);
+      registerProperty("mode", 9, false);
+      registerProperty("displayString", 10, false);
       registerFunction("mousePressed", 0);
       registerFunction("saveGraph", 1);
       registerFunction("loadGraph", 2);
@@ -151,28 +171,30 @@ public final class Data implements Cloneable {
     }
     @Override public void setValue(Data data, int type, Object value) {
       switch (type) {
-        case 1: data.setSaveName(TYPE.extractValue(java.lang.String.class, value)); return;
-        case 2: data.setSelectedGraph(TYPE.extractValue(java.lang.String.class, value)); return;
-        case 3: data.setGraph(TYPE.extractValue(Graph.class, value)); return;
-        case 4: TYPE.replaceValue(data.getSavedGraphs(), Graph.class, value); return;
-        case 5: data.setXCoord(TYPE.extractValue(java.lang.Integer.class, value)); return;
-        case 6: data.setYCoord(TYPE.extractValue(java.lang.Integer.class, value)); return;
-        case 7: data.setMode(TYPE.extractValue(java.lang.String.class, value)); return;
-        case 8: data.setDisplayString(TYPE.extractValue(java.lang.String.class, value)); return;
+        case 3: data.setSaveName(TYPE.extractValue(java.lang.String.class, value)); return;
+        case 4: data.setSelectedGraph(TYPE.extractValue(java.lang.String.class, value)); return;
+        case 5: data.setGraph(TYPE.extractValue(Graph.class, value)); return;
+        case 6: TYPE.replaceValue(data.getSavedGraphs(), Graph.class, value); return;
+        case 7: data.setXCoord(TYPE.extractValue(java.lang.Integer.class, value)); return;
+        case 8: data.setYCoord(TYPE.extractValue(java.lang.Integer.class, value)); return;
+        case 9: data.setMode(TYPE.extractValue(java.lang.String.class, value)); return;
+        case 10: data.setDisplayString(TYPE.extractValue(java.lang.String.class, value)); return;
       }
       throw new UnsupportedOperationException();
     }
     @Override public Object getValue(Data data, int type) {
       switch (type) {
-        case 0: return data.getOptions();
-        case 1: return data.getSaveName();
-        case 2: return data.getSelectedGraph();
-        case 3: return data.getGraph();
-        case 4: return data.getSavedGraphs();
-        case 5: return data.getXCoord();
-        case 6: return data.getYCoord();
-        case 7: return data.getMode();
-        case 8: return data.getDisplayString();
+        case 0: return data.isSaveEnabled();
+        case 1: return data.isDeleteStateEnabled();
+        case 2: return data.getOptions();
+        case 3: return data.getSaveName();
+        case 4: return data.getSelectedGraph();
+        case 5: return data.getGraph();
+        case 6: return data.getSavedGraphs();
+        case 7: return data.getXCoord();
+        case 8: return data.getYCoord();
+        case 9: return data.getMode();
+        case 10: return data.getDisplayString();
       }
       throw new UnsupportedOperationException();
     }

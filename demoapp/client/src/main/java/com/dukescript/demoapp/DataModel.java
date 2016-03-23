@@ -15,9 +15,8 @@ import netscape.javascript.JSException;
 
 
 
-
-
 @Model(className = "Data", targetId="", properties = {
+    //Zur Verwendung des beabsichtigten Namens für eine Speicherung
     @Property(name = "saveName", type = String.class),
     @Property(name = "selectedGraph", type = String.class),
     @Property(name = "graph", type= Graph.class),
@@ -25,16 +24,28 @@ import netscape.javascript.JSException;
     // Für Anzeige der Mausposition im Canvas
     @Property(name = "xCoord", type = int.class),
     @Property(name = "yCoord", type = int.class),
+    //Zur Anzeige des aktuellen Modus
     @Property(name = "mode", type = String.class),
     @Property(name = "displayString", type = String.class),
 })
 
 final class DataModel {
     
+    @ComputedProperty static boolean saveEnabled(String saveName){
+        return saveName != null && saveName.length() > 0;
+    }
+    
+    @ComputedProperty static boolean deleteStateEnabled(){
+        return TupelInFocus != null;
+    }
+    
     @Model(className = "Graph", targetId="", properties = {
         @Property(name = "graphName", type = String.class),
         @Property(name = "states", type = StateTupel.class, array = true)
     })
+    
+    
+    
     static class graphModel {
         
     }
@@ -98,7 +109,7 @@ final class DataModel {
         System.out.println("List Size: " + lst.size());
         return lst;
     }
-
+    
     
     private static Data ui;
     private static GraphicsContext2D ctx = GraphicsContext2D.getOrCreate("myCanvas");
@@ -113,7 +124,7 @@ final class DataModel {
     private static Transition currentTransition;
     private static boolean drawing;
     private static boolean dragging;
-    //Zur Zwischenspeicherung von Koordinaten zur Berechnung von Ausgleichswerten für die intuitive Verschiebung
+    //Hilfsvariablen Zwischenspeicherung von Koordinaten zur Berechnung von Ausgleichswerten für die intuitive Verschiebung
     //von Zuständen (Verhinderung des ruckartigen Sprungs im ersten Frame)
     private static int x;
     private static int y;
@@ -130,13 +141,10 @@ final class DataModel {
                     //Berechnung der bereinigten Koordinaten des Objektes (Berücksichtigung
                     //von Ort des Maus + Ort des Objektes -> Verhindern des ruckartigen
                     //verschiebens beim ersten Frame)
-                    int deltax;
-                    int deltay;
-                    deltax = realX - x;
-                    deltay = realY - y;
+                    int deltax = realX - x;
+                    int deltay = realY - y;
                     st.getCoords().set(1, deltax);
                     st.getCoords().set(2, deltay);
-                    
                 }   
             }
         }
@@ -234,6 +242,8 @@ final class DataModel {
             }   
         }
         draw();
+        System.out.println("TupelInFocus is: " + (TupelInFocus != null));
+        System.out.println("deleteStateEnabled is: " + deleteStateEnabled());
     }
      //Wird einmal beim Ablassen von der Maus ausgeführt, benutzt um Abschließende Operationen
     // auszuführen -> Erzeugen, hinzufügen eines Übergangs
@@ -501,7 +511,6 @@ final class DataModel {
         st.getCoords().add(null);
         st.getCoords().add(null);
         
-        
         if(ui.getGraph().getStates().size() < 6){
             st.setColor("rgb(" + (int)(Math.random() *  256) + "," + (int)(Math.random() *  256) + "," + (int)(Math.random() *  256) + ")");
             st.getCoords().set(2, 100);
@@ -512,7 +521,6 @@ final class DataModel {
             st.getCoords().set(2, 200);
             st.getCoords().set(1,(ui.getGraph().getStates().size() * 100) - 500);
                 }
-        
         st.setDiameter(25);
         st.setId("State " + ui.getGraph().getStates().size());
         //st.getTransitions().add(new Transition());
@@ -527,7 +535,6 @@ final class DataModel {
             if(ui.getGraph().getStates().get(i).getId().equals(TupelInFocus.getId())){
                 ui.getGraph().getStates().remove(i);
             }
-                
         }
         //ui.getGraph().getStates().remove(ui.getGraph().getStates().size()-1);
         draw();
@@ -543,6 +550,7 @@ final class DataModel {
         Dialogs.registerMouseBinding();
         Dialogs.registerMouseBinding2();
         ui = new Data();
+        ui.setSaveName("123");
         ui.setGraph(new Graph());
         Transition t = new Transition();
         t.getCoordsFrom().add(0, 0);
@@ -562,11 +570,6 @@ final class DataModel {
 
     }
     
-    public class Test {
-        
-    }
- 
-
 }
 
 

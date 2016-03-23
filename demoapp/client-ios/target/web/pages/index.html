@@ -38,8 +38,8 @@
                             <h1>State-Tool v1.0</h1>
                             <button data-bind="click: $root.resizeCanvas">Resize!</button>
                             <button data-bind="click: newCanvas">Refresh Canvas!</button>
-                            <br>
-                            <button data-bind="click: decreaseStates">Remove State</button>
+                            <br> <!-- deleteStateEnabled funktioniert komischerweise in diesem Fall nicht -->
+                            <button data-bind="click: decreaseStates, enable: deleteStateEnabled">Remove State</button>
                             <button data-bind="click: addState">Add State</button>
                             <br>
                             <button data-bind="click: dragMode">Drag</button>
@@ -70,10 +70,10 @@
                 </td>
                 <td>
                     <span>Savename</span>
-                    <input data-bind = "value: saveName" placeholder = "Enter Savename">
+                    <input data-bind = "value: saveName, valueUpdate: 'afterkeydown'" placeholder = "Enter Savename" >
                     <br/>
                 
-                    <button data-bind="click: $root.saveGraph">Save Graph</button>
+                    <button data-bind="click: $root.saveGraph, enable: saveEnabled">Save Graph</button>
                     <button data-bind="click: $root.loadGraph">Load Graph</button>
                 </td>
                 <td> <!-- mal mit text: Binding probieren um auf das ausgewählte Element zugreifen zu können -->
