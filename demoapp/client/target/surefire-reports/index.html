@@ -23,7 +23,7 @@
     <div class="top-banner-root">
       <span class="top-banner-title-font">Test results</span>
       <br/>
-      <span class="top-banner-font-1">1 suite, 1 failed test</span>
+      <span class="top-banner-font-1">1 suite</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -37,7 +37,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" class="navigator-link" panel-name="suite-Surefire_suite">
-              <span class="suite-name border-failed">Surefire suite</span>
+              <span class="suite-name border-passed">Surefire suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -90,21 +90,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">2 methods, 1 failed,   1 passed</span>
-                  </li>
-                  <li>
-                    <span class="method-list-title failed">Failed methods</span>
-                    <span class="show-or-hide-methods failed">
-                      <a href="#" panel-name="suite-Surefire_suite" class="hide-methods failed suite-Surefire_suite"> (hide)</a> <!-- hide-methods failed suite-Surefire_suite -->
-                      <a href="#" panel-name="suite-Surefire_suite" class="show-methods failed suite-Surefire_suite"> (show)</a> <!-- show-methods failed suite-Surefire_suite -->
-                    </span>
-                    <div class="method-list-content failed suite-Surefire_suite">
-                      <span>
-                        <img width="3%" src="failed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="com.dukescript.demoapp.DataModelTest" hash-for-method="add">add</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                    </div> <!-- method-list-content failed suite-Surefire_suite -->
+                    <span class="method-stats">2 methods,   2 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -115,7 +101,12 @@
                     <div class="method-list-content passed suite-Surefire_suite">
                       <span>
                         <img width="3%" src="passed.png"/>
-                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="com.dukescript.demoapp.DataModelTest" hash-for-method="enableDisableTest">enableDisableTest</a> <!-- method navigator-link -->
+                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="com.dukescript.demoapp.UIModelTest" hash-for-method="add">add</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="com.dukescript.demoapp.UIModelTest" hash-for-method="enableDisableTest">enableDisableTest</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-Surefire_suite -->
@@ -130,10 +121,10 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Surefire_suite" class="panel Surefire_suite">
-          <div class="suite-Surefire_suite-class-failed">
+          <div class="suite-Surefire_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
-              <img src="failed.png"/>
-              <span class="class-name">com.dukescript.demoapp.DataModelTest</span>
+              <img src="passed.png"/>
+              <span class="class-name">com.dukescript.demoapp.UIModelTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
@@ -141,29 +132,8 @@
                   <a name="add">
                   </a> <!-- add -->
                   <span class="method-name">add</span>
-                  <div class="stack-trace">java.lang.ExceptionInInitializerError
-	at com.dukescript.demoapp.Data.isSaveEnabled(Data.java:10)
-	at com.dukescript.demoapp.Data.setSaveName(Data.java:43)
-	at com.dukescript.demoapp.DataModelTest.add(DataModelTest.java:11)
-Caused by: java.lang.IllegalStateException: No presenter active. Use BrwsrCtx.execute!
-	at com.dukescript.impl.canvas.HTML5GraphicsEnvironment.getImpl(HTML5GraphicsEnvironment.java)
-	at com.dukescript.impl.canvas.HTML5GraphicsEnvironment.getOrCreateCanvas(HTML5GraphicsEnvironment.java:48)
-	at com.dukescript.api.canvas.GraphicsContext2D.createContext(GraphicsContext2D.java:87)
-	at com.dukescript.api.canvas.GraphicsContext2D.getOrCreate(GraphicsContext2D.java:83)
-	at com.dukescript.demoapp.DataModel.&lt;clinit&gt;(DataModel.java:115)
-	... 31 more
-... Removed 28 stack frames
-</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Surefire_suite-class-failed -->
-          <div class="suite-Surefire_suite-class-passed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">com.dukescript.demoapp.DataModelTest</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
                   <a name="enableDisableTest">
@@ -184,7 +154,7 @@ Caused by: java.lang.IllegalStateException: No presenter active. Use BrwsrCtx.ex
 &lt;suite thread-count=&quot;1&quot; verbose=&quot;0&quot; name=&quot;Surefire suite&quot;&gt;
   &lt;test name=&quot;Surefire test&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.dukescript.demoapp.DataModelTest&quot;/&gt;
+      &lt;class name=&quot;com.dukescript.demoapp.UIModelTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Surefire test --&gt;
 &lt;/suite&gt; &lt;!-- Surefire suite --&gt;
@@ -227,17 +197,17 @@ data.addColumn('number', 'Time (ms)');
 data.addRows(2);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'add')
-data.setCell(0, 2, 'com.dukescript.demoapp.DataModelTest')
-data.setCell(0, 3, 61);
+data.setCell(0, 2, 'com.dukescript.demoapp.UIModelTest')
+data.setCell(0, 3, 78);
 data.setCell(1, 0, 1)
 data.setCell(1, 1, 'enableDisableTest')
-data.setCell(1, 2, 'com.dukescript.demoapp.DataModelTest')
+data.setCell(1, 2, 'com.dukescript.demoapp.UIModelTest')
 data.setCell(1, 3, 0);
 window.suiteTableData['Surefire_suite']= { tableData: data, tableDiv: 'times-div-Surefire_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 61 ms</span>
+              <span class="suite-total-time">Total running time: 78 ms</span>
               <div id="times-div-Surefire_suite">
               </div> <!-- times-div-Surefire_suite -->
             </div> <!-- times-div -->
@@ -263,16 +233,14 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.dukescript.demoapp.DataModelTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.dukescript.demoapp.UIModelTest</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <img src="failed.png">
-                </img>
                 <span class="method-name">add</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">enableDisableTest</span>
-                <span class="method-start">91 ms</span>
+                <span class="method-start">78 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

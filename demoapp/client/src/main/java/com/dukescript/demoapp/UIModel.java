@@ -15,7 +15,7 @@ import netscape.javascript.JSException;
 
 
 
-@Model(className = "Data", targetId="", properties = {
+@Model(className = "UI", targetId="", properties = {
     //Zur Verwendung des beabsichtigten Namens für eine Speicherung
     @Property(name = "saveName", type = String.class),
     @Property(name = "selectedGraph", type = String.class),
@@ -29,7 +29,7 @@ import netscape.javascript.JSException;
     @Property(name = "displayString", type = String.class),
 })
 
-final class DataModel {
+final class UIModel {
     
     @ComputedProperty static boolean saveEnabled(String saveName){
         return saveName != null && saveName.length() > 0;
@@ -111,7 +111,7 @@ final class DataModel {
     }
     
     
-    private static Data ui;
+    private static UI ui;
     private static GraphicsContext2D ctx = GraphicsContext2D.getOrCreate("myCanvas");
     private static double gridSize;
     private static double gridCountWidth;
@@ -132,7 +132,7 @@ final class DataModel {
 
 
     @Function
-    static void mousePressed(Data model, int realX, int realY) {
+    static void mousePressed(UI model, int realX, int realY) {
         //Aktualisiere Hilfskoordinaten
         updateMaus(realX, realY);
         if(ui.getMode().equals("Drag")){
@@ -220,21 +220,35 @@ final class DataModel {
     }
     //Wird nur einmal bei einem Mausklick ausgeführt, genutzt um benötigte Variablen zu
     //initialisieren und das Objekt im Fokus zu bestimmen
-    @Function static void handleMouseDown(Data model, int realX, int realY){
+    @Function static void handleMouseDown(UI model, int realX, int realY){
         
+        //updateMaus(realX, realY);
         for(StateTupel st: ui.getGraph().getStates()){
             if(checkCollision(ui.getXCoord(), ui.getYCoord(), st)){
-                drawing = true;
                 System.out.println("handleMouseDown: Collision detected: UI-Coords with: " + st.getId());
                 TupelInFocus = st;
                 if(ui.getMode().equals("drawTransition")){
-                    
-                    //Handle eventual Transitioning
-                    currentTransition.getCoordsFrom().set(1, ui.getXCoord());
-                    currentTransition.getCoordsFrom().set(2, ui.getYCoord());
+                    drawing = true;
+                    /*
+                    Initialisiere die Koordinaten der zu zeichnenden Transition
+                    */
+                    currentTransition.getCoordsFrom().set(1, st.getCoords().get(1));
+                    currentTransition.getCoordsFrom().set(2, st.getCoords().get(2));
+                    /*
+                    Nochmal für die Zielkoordinaten um ein Fehlerhaftes Zeichnen im ersten
+                    Frame zu verhindern
+                    */
+                    currentTransition.getCoordsTo().set(1, st.getCoords().get(1));
+                    currentTransition.getCoordsTo().set(2, st.getCoords().get(2));
+                    System.out.println("currentTransition x: " + st.getCoords().get(1));
+                    System.out.println("currentTransition x: " + st.getCoords().get(2));
                 
                 }
                 if(ui.getMode().equals("Drag")){
+                    /*
+                    Initialisierung der Deltas für ein Verschieben der Zustände ohne eine
+                    ruckartige Verschiebung im ersten Frame
+                    */
                     x = ui.getXCoord() - st.getCoords().get(1);
                     y = ui.getYCoord() - st.getCoords().get(2);
                     dragging = true;
@@ -242,8 +256,6 @@ final class DataModel {
             }   
         }
         draw();
-        System.out.println("TupelInFocus is: " + (TupelInFocus != null));
-        System.out.println("deleteStateEnabled is: " + deleteStateEnabled());
     }
      //Wird einmal beim Ablassen von der Maus ausgeführt, benutzt um Abschließende Operationen
     // auszuführen -> Erzeugen, hinzufügen eines Übergangs
@@ -438,6 +450,10 @@ final class DataModel {
             // Zeichne die aktuell gezogene Transition
             ctx.beginPath();
             ctx.setStrokeStyle(new Style.Color("Black"));
+            System.out.println("Transitiondrawing from X: " + currentTransition.getCoordsFrom().get(1));
+            System.out.println("Transitiondrawing from Y: " + currentTransition.getCoordsFrom().get(2));
+            System.out.println("Transitiondrawing to X: " + currentTransition.getCoordsTo().get(1));
+            System.out.println("Transitiondrawing to Y: " + currentTransition.getCoordsTo().get(2));
             ctx.moveTo(currentTransition.getCoordsFrom().get(1), currentTransition.getCoordsFrom().get(2));
             ctx.lineTo(currentTransition.getCoordsTo().get(1), currentTransition.getCoordsTo().get(2));
             ctx.stroke();
@@ -544,12 +560,12 @@ final class DataModel {
      */
     static void onPageLoad() throws Exception {
         
-        Data d = new Data();
+        UI d = new UI();
         Models.toRaw(d);
         Dialogs.init();
         Dialogs.registerMouseBinding();
         Dialogs.registerMouseBinding2();
-        ui = new Data();
+        ui = new UI();
         ui.setSaveName("123");
         ui.setGraph(new Graph());
         Transition t = new Transition();
@@ -567,7 +583,6 @@ final class DataModel {
         resizeCanvas();
         draw();
         ui.applyBindings();
-
     }
     
 }

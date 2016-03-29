@@ -20,7 +20,7 @@ public final class Graph implements Cloneable {
     proto.accessProperty("states");
     return prop_states;
   }
-  private static Class<DataModel.graphModel> modelFor() { return null; }
+  private static Class<UIModel.graphModel> modelFor() { return null; }
   private Graph(net.java.html.BrwsrCtx context) {
     this.proto = TYPE.createProto(this, context);
     this.prop_states = proto.createList("states", -1);
@@ -35,7 +35,7 @@ public final class Graph implements Cloneable {
   };
   private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<Graph> {
     private Html4JavaType() {
-      super(Graph.class, DataModel.graphModel.class, 2, 0);
+      super(Graph.class, UIModel.graphModel.class, 2, 0);
       registerProperty("graphName", 0, false);
       registerProperty("states", 1, false);
     }

@@ -49,7 +49,7 @@ public final class StateTupel implements Cloneable {
     prop_color = v;
     proto.valueHasMutated("color", o, v);
   }
-  private static Class<DataModel.stateTupelModel> modelFor() { return null; }
+  private static Class<UIModel.stateTupelModel> modelFor() { return null; }
   private StateTupel(net.java.html.BrwsrCtx context) {
     this.proto = TYPE.createProto(this, context);
     this.prop_transitions = proto.createList("transitions", -1);
@@ -67,7 +67,7 @@ public final class StateTupel implements Cloneable {
   };
   private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<StateTupel> {
     private Html4JavaType() {
-      super(StateTupel.class, DataModel.stateTupelModel.class, 5, 2);
+      super(StateTupel.class, UIModel.stateTupelModel.class, 5, 2);
       registerProperty("id", 0, false);
       registerProperty("transitions", 1, false);
       registerProperty("coords", 2, false);
@@ -99,10 +99,10 @@ public final class StateTupel implements Cloneable {
     @Override public void call(StateTupel model, int type, Object data, Object ev) throws Exception {
       switch (type) {
         case 0:
-          com.dukescript.demoapp.DataModel.stateTupelModel.removeTransition(model);
+          com.dukescript.demoapp.UIModel.stateTupelModel.removeTransition(model);
           return;
         case 1:
-          com.dukescript.demoapp.DataModel.stateTupelModel.addTransition(model);
+          com.dukescript.demoapp.UIModel.stateTupelModel.addTransition(model);
           return;
       }
       throw new UnsupportedOperationException();

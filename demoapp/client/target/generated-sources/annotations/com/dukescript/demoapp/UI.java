@@ -1,13 +1,13 @@
 package com.dukescript.demoapp;
 import net.java.html.json.*;
-public final class Data implements Cloneable {
+public final class UI implements Cloneable {
   private static final Html4JavaType TYPE = new Html4JavaType();
   private final org.netbeans.html.json.spi.Proto proto;
   public boolean isSaveEnabled() {
     java.lang.String arg1 = getSaveName();
     try {
       proto.acquireLock();
-      return com.dukescript.demoapp.DataModel.saveEnabled(arg1);
+      return com.dukescript.demoapp.UIModel.saveEnabled(arg1);
     } finally {
       proto.releaseLock();
     }
@@ -15,7 +15,7 @@ public final class Data implements Cloneable {
   public boolean isDeleteStateEnabled() {
     try {
       proto.acquireLock();
-      return com.dukescript.demoapp.DataModel.deleteStateEnabled();
+      return com.dukescript.demoapp.UIModel.deleteStateEnabled();
     } finally {
       proto.releaseLock();
     }
@@ -24,7 +24,7 @@ public final class Data implements Cloneable {
     java.util.List<Graph> arg1 = getSavedGraphs();
     try {
       proto.acquireLock("options");
-      return com.dukescript.demoapp.DataModel.options(arg1);
+      return com.dukescript.demoapp.UIModel.options(arg1);
     } finally {
       proto.releaseLock();
     }
@@ -119,17 +119,17 @@ public final class Data implements Cloneable {
     prop_displayString = v;
     proto.valueHasMutated("displayString", o, v);
   }
-  private static Class<DataModel> modelFor() { return null; }
-  private Data(net.java.html.BrwsrCtx context) {
+  private static Class<UIModel> modelFor() { return null; }
+  private UI(net.java.html.BrwsrCtx context) {
     this.proto = TYPE.createProto(this, context);
     this.prop_savedGraphs = proto.createList("savedGraphs", -1, "options");
   };
-  public Data() {
-    this(net.java.html.BrwsrCtx.findDefault(Data.class));
+  public UI() {
+    this(net.java.html.BrwsrCtx.findDefault(UI.class));
     prop_graph = new Graph();
   };
-  public Data(java.lang.String aSaveName, java.lang.String aSelectedGraph, Graph aGraph, int aXCoord, int aYCoord, java.lang.String aMode, java.lang.String aDisplayString, Graph... aSavedGraphs) {
-    this(net.java.html.BrwsrCtx.findDefault(Data.class));
+  public UI(java.lang.String aSaveName, java.lang.String aSelectedGraph, Graph aGraph, int aXCoord, int aYCoord, java.lang.String aMode, java.lang.String aDisplayString, Graph... aSavedGraphs) {
+    this(net.java.html.BrwsrCtx.findDefault(UI.class));
     this.prop_saveName = aSaveName;
     this.prop_selectedGraph = aSelectedGraph;
     this.prop_graph = aGraph;
@@ -139,9 +139,9 @@ public final class Data implements Cloneable {
     this.prop_displayString = aDisplayString;
     proto.initTo(this.prop_savedGraphs, aSavedGraphs);
   };
-  private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<Data> {
+  private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<UI> {
     private Html4JavaType() {
-      super(Data.class, DataModel.class, 11, 15);
+      super(UI.class, UIModel.class, 11, 15);
       registerProperty("saveEnabled", 0, true);
       registerProperty("deleteStateEnabled", 1, true);
       registerProperty("options", 2, true);
@@ -169,7 +169,7 @@ public final class Data implements Cloneable {
       registerFunction("addState", 13);
       registerFunction("decreaseStates", 14);
     }
-    @Override public void setValue(Data data, int type, Object value) {
+    @Override public void setValue(UI data, int type, Object value) {
       switch (type) {
         case 3: data.setSaveName(TYPE.extractValue(java.lang.String.class, value)); return;
         case 4: data.setSelectedGraph(TYPE.extractValue(java.lang.String.class, value)); return;
@@ -182,7 +182,7 @@ public final class Data implements Cloneable {
       }
       throw new UnsupportedOperationException();
     }
-    @Override public Object getValue(Data data, int type) {
+    @Override public Object getValue(UI data, int type) {
       switch (type) {
         case 0: return data.isSaveEnabled();
         case 1: return data.isDeleteStateEnabled();
@@ -198,72 +198,72 @@ public final class Data implements Cloneable {
       }
       throw new UnsupportedOperationException();
     }
-    @Override public void call(Data model, int type, Object data, Object ev) throws Exception {
+    @Override public void call(UI model, int type, Object data, Object ev) throws Exception {
       switch (type) {
         case 0:
-          com.dukescript.demoapp.DataModel.mousePressed(model, model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
+          com.dukescript.demoapp.UIModel.mousePressed(model, model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
           return;
         case 1:
-          com.dukescript.demoapp.DataModel.saveGraph();
+          com.dukescript.demoapp.UIModel.saveGraph();
           return;
         case 2:
-          com.dukescript.demoapp.DataModel.loadGraph();
+          com.dukescript.demoapp.UIModel.loadGraph();
           return;
         case 3:
-          com.dukescript.demoapp.DataModel.clearCanvas();
+          com.dukescript.demoapp.UIModel.clearCanvas();
           return;
         case 4:
-          com.dukescript.demoapp.DataModel.handleMouseDown(model, model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
+          com.dukescript.demoapp.UIModel.handleMouseDown(model, model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
           return;
         case 5:
-          com.dukescript.demoapp.DataModel.handleMouseUp();
+          com.dukescript.demoapp.UIModel.handleMouseUp();
           return;
         case 6:
-          com.dukescript.demoapp.DataModel.updateMaus(model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
+          com.dukescript.demoapp.UIModel.updateMaus(model.proto.toNumber(ev, "realX").intValue(), model.proto.toNumber(ev, "realY").intValue());
           return;
         case 7:
-          com.dukescript.demoapp.DataModel.newCanvas();
+          com.dukescript.demoapp.UIModel.newCanvas();
           return;
         case 8:
-          com.dukescript.demoapp.DataModel.refreshCanvas();
+          com.dukescript.demoapp.UIModel.refreshCanvas();
           return;
         case 9:
-          com.dukescript.demoapp.DataModel.initCanvas();
+          com.dukescript.demoapp.UIModel.initCanvas();
           return;
         case 10:
-          com.dukescript.demoapp.DataModel.resizeCanvas();
+          com.dukescript.demoapp.UIModel.resizeCanvas();
           return;
         case 11:
-          com.dukescript.demoapp.DataModel.dragMode();
+          com.dukescript.demoapp.UIModel.dragMode();
           return;
         case 12:
-          com.dukescript.demoapp.DataModel.drawTransitionMode();
+          com.dukescript.demoapp.UIModel.drawTransitionMode();
           return;
         case 13:
-          com.dukescript.demoapp.DataModel.addState();
+          com.dukescript.demoapp.UIModel.addState();
           return;
         case 14:
-          com.dukescript.demoapp.DataModel.decreaseStates();
+          com.dukescript.demoapp.UIModel.decreaseStates();
           return;
       }
       throw new UnsupportedOperationException();
     }
     @Override public org.netbeans.html.json.spi.Proto protoFor(Object obj) {
-      return ((Data)obj).proto;    }
-    @Override public void onChange(Data model, int type) {
+      return ((UI)obj).proto;    }
+    @Override public void onChange(UI model, int type) {
       switch (type) {
     }
       throw new UnsupportedOperationException();
     }
-  @Override public void onMessage(Data model, int index, int type, Object data, Object[] params) {
+  @Override public void onMessage(UI model, int index, int type, Object data, Object[] params) {
     switch (index) {
     }
     throw new UnsupportedOperationException("index: " + index + " type: " + type);
   }
-    @Override public Data read(net.java.html.BrwsrCtx c, Object json) { return new Data(c, json); }
-    @Override public Data cloneTo(Data o, net.java.html.BrwsrCtx c) { return o.clone(c); }
+    @Override public UI read(net.java.html.BrwsrCtx c, Object json) { return new UI(c, json); }
+    @Override public UI cloneTo(UI o, net.java.html.BrwsrCtx c) { return o.clone(c); }
   }
-  private Data(net.java.html.BrwsrCtx c, Object json) {
+  private UI(net.java.html.BrwsrCtx c, Object json) {
     this(c);
     Object[] ret = new Object[8];
     proto.extract(json, new String[] {
@@ -319,11 +319,11 @@ public final class Data implements Cloneable {
     sb.append('}');
     return sb.toString();
   }
-  public Data clone() {
+  public UI clone() {
     return clone(proto.getContext());
   }
-  private Data clone(net.java.html.BrwsrCtx ctx) {
-    Data ret = new Data(ctx);
+  private UI clone(net.java.html.BrwsrCtx ctx) {
+    UI ret = new UI(ctx);
     ret.prop_saveName = getSaveName();
     ret.prop_selectedGraph = getSelectedGraph();
     ret.prop_graph =  getGraph()  == null ? null : prop_graph.clone();
@@ -342,14 +342,14 @@ the surrounding HTML page.
 This method binds to element '""' on the page
 @return <code>this</code> object
 */
-  public Data applyBindings() {
+  public UI applyBindings() {
     proto.applyBindings();
     return this;
   }
   public boolean equals(Object o) {
     if (o == this) return true;
-    if (!(o instanceof Data)) return false;
-    Data p = (Data)o;
+    if (!(o instanceof UI)) return false;
+    UI p = (UI)o;
     if (!TYPE.isSame(prop_saveName, p.prop_saveName)) return false;
     if (!TYPE.isSame(prop_selectedGraph, p.prop_selectedGraph)) return false;
     if (!TYPE.isSame(prop_graph, p.prop_graph)) return false;
@@ -361,7 +361,7 @@ This method binds to element '""' on the page
     return true;
   }
   public int hashCode() {
-    int h = Data.class.getName().hashCode();
+    int h = UI.class.getName().hashCode();
     h = TYPE.hashPlus(prop_saveName, h);
     h = TYPE.hashPlus(prop_selectedGraph, h);
     h = TYPE.hashPlus(prop_graph, h);

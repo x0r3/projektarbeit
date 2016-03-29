@@ -37,7 +37,7 @@ public final class Transition implements Cloneable {
     proto.accessProperty("coordsTo");
     return prop_coordsTo;
   }
-  private static Class<DataModel.TransitionModel> modelFor() { return null; }
+  private static Class<UIModel.TransitionModel> modelFor() { return null; }
   private Transition(net.java.html.BrwsrCtx context) {
     this.proto = TYPE.createProto(this, context);
     this.prop_coordsFrom = proto.createList("coordsFrom", -1);
@@ -54,7 +54,7 @@ public final class Transition implements Cloneable {
   };
   private static class Html4JavaType extends org.netbeans.html.json.spi.Proto.Type<Transition> {
     private Html4JavaType() {
-      super(Transition.class, DataModel.TransitionModel.class, 4, 0);
+      super(Transition.class, UIModel.TransitionModel.class, 4, 0);
       registerProperty("value", 0, false);
       registerProperty("to", 1, false);
       registerProperty("coordsFrom", 2, false);

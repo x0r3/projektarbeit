@@ -22,7 +22,7 @@ public final class Main {
      * Called when the page is ready.
      */
     public static void onPageLoad() throws Exception {
-        DataModel.onPageLoad();
+        UIModel.onPageLoad();
     }
     
 
