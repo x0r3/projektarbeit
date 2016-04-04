@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="93" started-at="2016-03-25T23:56:02Z" finished-at="2016-03-25T23:56:02Z">
+  <suite name="Surefire suite" duration-ms="76" started-at="2016-04-04T08:18:31Z" finished-at="2016-04-04T08:18:31Z">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="93" started-at="2016-03-25T23:56:02Z" finished-at="2016-03-25T23:56:02Z">
+    <test name="Surefire test" duration-ms="76" started-at="2016-04-04T08:18:31Z" finished-at="2016-04-04T08:18:31Z">
       <class name="com.dukescript.demoapp.UIModelTest">
-        <test-method status="PASS" signature="add()[pri:0, instance:com.dukescript.demoapp.UIModelTest@6debcae2]" name="add" duration-ms="78" started-at="2016-03-26T00:56:02Z" finished-at="2016-03-26T00:56:02Z">
+        <test-method status="PASS" signature="add()[pri:0, instance:com.dukescript.demoapp.UIModelTest@6debcae2]" name="add" duration-ms="62" started-at="2016-04-04T10:18:31Z" finished-at="2016-04-04T10:18:31Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- add -->
-        <test-method status="PASS" signature="enableDisableTest()[pri:0, instance:com.dukescript.demoapp.UIModelTest@6debcae2]" name="enableDisableTest" duration-ms="0" started-at="2016-03-26T00:56:02Z" finished-at="2016-03-26T00:56:02Z">
+        <test-method status="PASS" signature="enableDisableTest()[pri:0, instance:com.dukescript.demoapp.UIModelTest@6debcae2]" name="enableDisableTest" duration-ms="0" started-at="2016-04-04T10:18:31Z" finished-at="2016-04-04T10:18:31Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- enableDisableTest -->

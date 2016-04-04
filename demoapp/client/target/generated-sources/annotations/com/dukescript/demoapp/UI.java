@@ -13,9 +13,10 @@ public final class UI implements Cloneable {
     }
   }
   public boolean isDeleteStateEnabled() {
+    java.lang.String arg1 = getSelectedGraph();
     try {
       proto.acquireLock();
-      return com.dukescript.demoapp.UIModel.deleteStateEnabled();
+      return com.dukescript.demoapp.UIModel.deleteStateEnabled(arg1);
     } finally {
       proto.releaseLock();
     }
@@ -53,6 +54,7 @@ public final class UI implements Cloneable {
     if (TYPE.isSame(o , v)) return;
     prop_selectedGraph = v;
     proto.valueHasMutated("selectedGraph", o, v);
+    proto.valueHasMutated("deleteStateEnabled", null, isDeleteStateEnabled());
   }
   private Graph prop_graph;
   public Graph getGraph() {
@@ -167,7 +169,7 @@ public final class UI implements Cloneable {
       registerFunction("dragMode", 11);
       registerFunction("drawTransitionMode", 12);
       registerFunction("addState", 13);
-      registerFunction("decreaseStates", 14);
+      registerFunction("removeState", 14);
     }
     @Override public void setValue(UI data, int type, Object value) {
       switch (type) {
@@ -243,7 +245,7 @@ public final class UI implements Cloneable {
           com.dukescript.demoapp.UIModel.addState();
           return;
         case 14:
-          com.dukescript.demoapp.UIModel.decreaseStates();
+          com.dukescript.demoapp.UIModel.removeState();
           return;
       }
       throw new UnsupportedOperationException();

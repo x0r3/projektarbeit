@@ -35,7 +35,7 @@ final class UIModel {
         return saveName != null && saveName.length() > 0;
     }
     
-    @ComputedProperty static boolean deleteStateEnabled(){
+    @ComputedProperty static boolean deleteStateEnabled(String selectedGraph){
         return TupelInFocus != null;
     }
     
@@ -59,7 +59,9 @@ final class UIModel {
     })
     static class stateTupelModel {
         
-            @Function static void removeTransition(StateTupel st){      
+
+        
+            @Function static void removeTransition(StateTupel st){
             st.getTransitions().remove(st.getTransitions().size()-1);
             draw();
             }
@@ -67,7 +69,6 @@ final class UIModel {
             @Function static void addTransition(StateTupel st){  
             st.getTransitions().add(new Transition());
             draw();
-            
             }
     }
     
@@ -98,15 +99,12 @@ final class UIModel {
     // einer ComputedProperty heraus?
     
     @ComputedProperty static java.util.List<String> options(java.util.List<Graph> savedGraphs){
-        List lst = new LinkedList<String>();
+        
+        List lst = new LinkedList<>();
+        
         for(Graph g: savedGraphs){
             lst.add(g.getGraphName());
-            System.out.println(g.getGraphName());
-
         }
-        //System.out.println(g.getGraphName());
-        System.out.println("Saved Graphs: " + savedGraphs.size());
-        System.out.println("List Size: " + lst.size());
         return lst;
     }
     
@@ -133,6 +131,7 @@ final class UIModel {
 
     @Function
     static void mousePressed(UI model, int realX, int realY) {
+
         //Aktualisiere Hilfskoordinaten
         updateMaus(realX, realY);
         if(ui.getMode().equals("Drag")){
@@ -221,12 +220,14 @@ final class UIModel {
     //Wird nur einmal bei einem Mausklick ausgeführt, genutzt um benötigte Variablen zu
     //initialisieren und das Objekt im Fokus zu bestimmen
     @Function static void handleMouseDown(UI model, int realX, int realY){
-        
+        TupelInFocus = null;
+        ui.setSelectedGraph("None selected");
         //updateMaus(realX, realY);
         for(StateTupel st: ui.getGraph().getStates()){
             if(checkCollision(ui.getXCoord(), ui.getYCoord(), st)){
                 System.out.println("handleMouseDown: Collision detected: UI-Coords with: " + st.getId());
                 TupelInFocus = st;
+                ui.setSelectedGraph(TupelInFocus.getId());
                 if(ui.getMode().equals("drawTransition")){
                     drawing = true;
                     /*
@@ -309,6 +310,8 @@ final class UIModel {
         ui.setYCoord(realY);
         
     }
+    
+
     //Wenn der benutzer den aktuellen Graph verwerfen will. Zeichnet das Canvas neu +
     //erzeugt neuen Graph.
     @Function static void newCanvas(){
@@ -402,12 +405,7 @@ final class UIModel {
                             drawCursor(st.getCoords().get(1) - absdx * (-1.0), Math.abs(st.getCoords().get(2)) - absdy, angle);
                             //Hilfereiche Kontrollausgaben der einzelnen Koordinaten
                             double deg;
-                            System.out.println("dx: " + dx);
-                            System.out.println("dy: " + dy);
-                            System.out.println("dx / dy :  " + dx / dy);
-                            System.out.println(" abs(dx / dy) : " + Math.abs(dx / dy));
-                            System.out.println(" tan(abs(dx / dy)) : " + Math.tan(Math.abs(dx / dy)));
-                            System.out.println("tan(abs(dx / dy)) to Degrees : " + Math.toDegrees(Math.tan(Math.abs(dx / dy))));
+                           
                             deg = 90.0 - Math.toDegrees(Math.tan(Math.abs(dx / dy)));
                             System.out.println("deg: " + deg);  
 
@@ -450,10 +448,6 @@ final class UIModel {
             // Zeichne die aktuell gezogene Transition
             ctx.beginPath();
             ctx.setStrokeStyle(new Style.Color("Black"));
-            System.out.println("Transitiondrawing from X: " + currentTransition.getCoordsFrom().get(1));
-            System.out.println("Transitiondrawing from Y: " + currentTransition.getCoordsFrom().get(2));
-            System.out.println("Transitiondrawing to X: " + currentTransition.getCoordsTo().get(1));
-            System.out.println("Transitiondrawing to Y: " + currentTransition.getCoordsTo().get(2));
             ctx.moveTo(currentTransition.getCoordsFrom().get(1), currentTransition.getCoordsFrom().get(2));
             ctx.lineTo(currentTransition.getCoordsTo().get(1), currentTransition.getCoordsTo().get(2));
             ctx.stroke();
@@ -545,14 +539,19 @@ final class UIModel {
         
     }
     
-    @Function static void decreaseStates(){
+    @Function static void removeState(){
         
-        for(int i = 0; i < ui.getGraph().getStates().size(); i ++){
-            if(ui.getGraph().getStates().get(i).getId().equals(TupelInFocus.getId())){
-                ui.getGraph().getStates().remove(i);
+        try{
+            for(int i = 0; i < ui.getGraph().getStates().size(); i ++){
+                if(ui.getGraph().getStates().get(i).getId().equals(TupelInFocus.getId())){
+                    ui.getGraph().getStates().remove(i);
+                    TupelInFocus = null;
+                    ui.setSelectedGraph("None selected");
+                }
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        //ui.getGraph().getStates().remove(ui.getGraph().getStates().size()-1);
         draw();
     }
     /**
@@ -567,6 +566,7 @@ final class UIModel {
         Dialogs.registerMouseBinding2();
         ui = new UI();
         ui.setSaveName("123");
+        ui.setSelectedGraph(null);
         ui.setGraph(new Graph());
         Transition t = new Transition();
         t.getCoordsFrom().add(0, 0);

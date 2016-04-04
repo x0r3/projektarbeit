@@ -51,6 +51,7 @@ public final class Dialogs {
                 "return window.innerWidth;")
     
     public static native int getSreenWidth();
+
     
         @JavaScriptBody(
         args = {}, body = 
@@ -106,6 +107,9 @@ public final class Dialogs {
             + "    }\n"
             + "};")
     public static native void registerMouseBinding2();
+    
+    
+
     
     
 

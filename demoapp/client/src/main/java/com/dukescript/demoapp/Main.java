@@ -23,6 +23,7 @@ public final class Main {
      */
     public static void onPageLoad() throws Exception {
         UIModel.onPageLoad();
+        
     }
     
 

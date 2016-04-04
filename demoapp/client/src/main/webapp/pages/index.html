@@ -14,9 +14,11 @@
             #masterTable {
                 border-style: solid;
                 background-color:#CCFF99;
+                width: 100%;
             }
             #myCanvas {
                 background-color:#E0E0D1;
+                width:100%;
             }
             #mode {
                 font-size: 30px;
@@ -26,6 +28,9 @@
             }
             #leftSegment{
                 background-color:#a6ff4d;
+            }
+            #selString{
+                font-style:italic;
             }
         </style>
     </head>
@@ -39,7 +44,7 @@
                             <button data-bind="click: resizeCanvas">Resize!</button>
                             <button data-bind="click: newCanvas">Refresh Canvas!</button>
                             <br> <!-- deleteStateEnabled funktioniert komischerweise in diesem Fall nicht -->
-                            <button data-bind="click: decreaseStates, enable: deleteStateEnabled">Remove State</button>
+                            <button data-bind="click: removeState, enable: deleteStateEnabled">Remove State</button>
                             <button data-bind="click: addState">Add State</button>
                             <br>
                             <button data-bind="click: dragMode">Drag</button>
@@ -52,8 +57,8 @@
                     <div data-bind="foreach: graph().states">
                         <span>From</span>
                         <input data-bind="value: id, valueUpdate: 'afterkeydown'">
-                        <button data-bind="click: removeTransition">Remove Transition</button>
-                        <button data-bind="click: addTransition">Add Transition</button>
+                            <button data-bind="click: removeTransition">Remove Transition</button>
+                            <button data-bind="click: addTransition">Add Transition</button>
                         <div data-bind="foreach: transitions">
                             <span>To</span>
                             <input data-bind="value: to">
@@ -66,7 +71,8 @@
                     <span data-bind="text: yCoord"></span>
                     <br>
                     <span id="mode" data-bind="text: displayString"></span>
-
+                    <br>
+                    <span id="selString" data-bind="text:selectedGraph">
                 </td>
                 <td>
                     <span>Savename</span>
